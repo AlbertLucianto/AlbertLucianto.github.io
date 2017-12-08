@@ -5,7 +5,7 @@ webpackJsonp([0],Array(22).concat([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnchorType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return BaseAnchor; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__ = __webpack_require__(31);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -43,9 +43,6 @@ var BaseAnchor = /** @class */ (function (_super) {
     function BaseAnchor(params) {
         return _super.call(this, __assign({}, params, { type: __WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["b" /* DrawableType */].Anchor })) || this;
     }
-    BaseAnchor.prototype.toObject = function () {
-        return (__assign({}, __WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["a" /* Drawable */].prototype.toObject.call(this), this));
-    };
     return BaseAnchor;
 }(__WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["a" /* Drawable */]));
 
@@ -146,10 +143,87 @@ var ToolboxActions = /** @class */ (function () {
 /* 28 */,
 /* 29 */,
 /* 30 */,
-/* 31 */,
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DrawableType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Drawable; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_model__ = __webpack_require__(35);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+
+
+var DrawableType;
+(function (DrawableType) {
+    DrawableType["Anchor"] = "DRAWABLE_ANCHOR";
+    DrawableType["Path"] = "DRAWABLE_PATH";
+    DrawableType["Group"] = "DRAWABLE_GROUP";
+})(DrawableType || (DrawableType = {}));
+var initDrawableAttribute = {
+    id: 0,
+    idx: 0,
+    version: 0,
+    absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */]({ x: 0, y: 0 }),
+    routeParentPath: Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]),
+    type: '',
+    children: Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]),
+};
+var RecordDrawable = Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["Record"])(initDrawableAttribute);
+var Drawable = /** @class */ (function (_super) {
+    __extends(Drawable, _super);
+    function Drawable(init) {
+        return _super.call(this, __assign({}, init, { id: init.id || Drawable.genId(), version: Drawable.genVersion(), routeParentPath: init.routeParentPath || Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]), children: init.children || Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]) })) || this;
+    }
+    Drawable.prototype.toObject = function () {
+        return (__assign({}, RecordDrawable.prototype.toObject.call(this), this));
+    };
+    Drawable.lastId = 1;
+    Drawable.lastVersion = 1;
+    /**
+     * Converting from Array<number> usually used in `targetIn` to be merged alternately with 'children' string
+     * Used for accessing immutable data using methods `getIn`, `setIn`, etc.
+     */
+    Drawable.toRoutePath = function (targetIn, accessLastChildren) {
+        if (accessLastChildren === void 0) { accessLastChildren = false; }
+        return targetIn.reduce(function (acc, target, idx) {
+            return accessLastChildren || idx !== targetIn.length - 1 ? acc.concat([target, 'children']) : acc.concat([target]);
+        }, ['root']);
+    };
+    Drawable.genId = function () {
+        return Drawable.lastId++;
+    };
+    Drawable.genVersion = function () {
+        return Drawable.lastVersion++;
+    };
+    return Drawable;
+}(RecordDrawable));
+
+//# sourceMappingURL=drawable.model.js.map
+
+/***/ }),
 /* 32 */,
 /* 33 */,
-/* 34 */
+/* 34 */,
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -250,7 +324,6 @@ var CanvasState = /** @class */ (function (_super) {
 //# sourceMappingURL=canvas.model.js.map
 
 /***/ }),
-/* 35 */,
 /* 36 */,
 /* 37 */,
 /* 38 */,
@@ -270,79 +343,7 @@ var CanvasState = /** @class */ (function (_super) {
 /* 52 */,
 /* 53 */,
 /* 54 */,
-/* 55 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return DrawableType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Drawable; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_model__ = __webpack_require__(34);
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-
-
-var DrawableType;
-(function (DrawableType) {
-    DrawableType["Anchor"] = "DRAWABLE_ANCHOR";
-    DrawableType["Path"] = "DRAWABLE_PATH";
-    DrawableType["Group"] = "DRAWABLE_GROUP";
-})(DrawableType || (DrawableType = {}));
-var initDrawableAttribute = {
-    id: 0,
-    idx: 0,
-    version: 0,
-    absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */]({ x: 0, y: 0 }),
-    routeParentPath: Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]),
-    type: '',
-    children: Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]),
-};
-var Drawable = /** @class */ (function (_super) {
-    __extends(Drawable, _super);
-    function Drawable(init) {
-        return _super.call(this, __assign({}, init, { id: init.id || Drawable.genId(), version: Drawable.genVersion(), routeParentPath: init.routeParentPath || Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]), children: init.children || Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]) })) || this;
-    }
-    Drawable.lastId = 1;
-    Drawable.lastVersion = 1;
-    /**
-     * Converting from Array<number> usually used in `targetIn` to be merged alternately with 'children' string
-     * Used for accessing immutable data using methods `getIn`, `setIn`, etc.
-     */
-    Drawable.toRoutePath = function (targetIn, accessLastChildren) {
-        if (accessLastChildren === void 0) { accessLastChildren = false; }
-        return targetIn.reduce(function (acc, target, idx) {
-            return accessLastChildren || idx !== targetIn.length - 1 ? acc.concat([target, 'children']) : acc.concat([target]);
-        }, []);
-    };
-    Drawable.genId = function () {
-        return Drawable.lastId++;
-    };
-    Drawable.genVersion = function () {
-        return Drawable.lastVersion++;
-    };
-    return Drawable;
-}(Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["Record"])(initDrawableAttribute)));
-
-//# sourceMappingURL=drawable.model.js.map
-
-/***/ }),
+/* 55 */,
 /* 56 */,
 /* 57 */,
 /* 58 */,
@@ -888,6 +889,8 @@ var DrawableActionType;
     DrawableActionType["DRAWABLE_ADD_SELECT"] = "DRAWABLE_ADD_SELECT";
     DrawableActionType["DRAWABLE_DESELECT"] = "DRAWABLE_DESELECT";
     DrawableActionType["DRAWABLE_DESELECT_ALL"] = "DRAWABLE_DESELECT_ALL";
+    DrawableActionType["DRAWABLE_DELETE"] = "DRAWABLE_DELETE";
+    DrawableActionType["DRAWABLE_REFRESH_ALL_ROUTE_PATH_IN"] = "DRAWABLE_REFRESH_ALL_ROUTE_PATH_IN";
 })(DrawableActionType || (DrawableActionType = {}));
 var DrawableActions = /** @class */ (function () {
     function DrawableActions() {
@@ -911,6 +914,16 @@ var DrawableActions = /** @class */ (function () {
             payload: undefined,
             meta: undefined,
         }); };
+        this.deleteDrawableAction = function (targetIn) { return ({
+            type: DrawableActionType.DRAWABLE_DELETE,
+            payload: targetIn,
+            meta: undefined,
+        }); };
+        this.refreshAllRoutePathIn = function (parentIn) { return ({
+            type: DrawableActionType.DRAWABLE_REFRESH_ALL_ROUTE_PATH_IN,
+            payload: parentIn,
+            meta: undefined,
+        }); };
     }
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
@@ -928,6 +941,14 @@ var DrawableActions = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
         __metadata("design:type", Object)
     ], DrawableActions.prototype, "deselectAllAction", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
+        __metadata("design:type", Object)
+    ], DrawableActions.prototype, "deleteDrawableAction", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
+        __metadata("design:type", Object)
+    ], DrawableActions.prototype, "refreshAllRoutePathIn", void 0);
     DrawableActions = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])()
     ], DrawableActions);
@@ -1064,6 +1085,7 @@ var SelectiontoolActionType;
 (function (SelectiontoolActionType) {
     SelectiontoolActionType["SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE"] = "SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE";
     SelectiontoolActionType["SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS"] = "SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS";
+    SelectiontoolActionType["SELECTIONTOOL_KEY_DOWN_ON_WINDOW"] = "SELECTIONTOOL_KEY_DOWN_ON_WINDOW";
 })(SelectiontoolActionType || (SelectiontoolActionType = {}));
 var SelectiontoolActions = /** @class */ (function () {
     function SelectiontoolActions() {
@@ -1080,6 +1102,11 @@ var SelectiontoolActions = /** @class */ (function () {
         }); };
         this.mouseDownOnCanvas = function () { return ({
             type: SelectiontoolActionType.SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS,
+        }); };
+        this.keyDownOnWindow = function (e) { return ({
+            type: SelectiontoolActionType.SELECTIONTOOL_KEY_DOWN_ON_WINDOW,
+            payload: e,
+            meta: undefined,
         }); };
     }
     SelectiontoolActions = __decorate([
@@ -1556,7 +1583,7 @@ var AnchorDirective = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
@@ -1676,7 +1703,7 @@ var BasicAnchorComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
@@ -1809,7 +1836,7 @@ var BezierAnchorComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
@@ -1947,7 +1974,7 @@ var SmoothAnchorComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_anchor_reducer__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvas_action__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_core__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_model__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_model__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__drawable_drawable_action__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__drawable_drawable_reducer__ = __webpack_require__(302);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__path_path_action__ = __webpack_require__(62);
@@ -2033,7 +2060,7 @@ var AnchorFactory = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BasicAnchor; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__canvas_model__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__canvas_model__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__anchor_model__ = __webpack_require__(22);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -2066,6 +2093,7 @@ var BasicAnchor = /** @class */ (function (_super) {
         _this.setRouteParentPath = function (path) {
             return new BasicAnchor(__assign({}, _this.toObject(), { routeParentPath: path }));
         };
+        _this.setIndex = function (idx) { return new BasicAnchor(__assign({}, _this.toObject(), { idx: idx })); };
         _this.setPosition = function (absPosition) {
             return new BasicAnchor(__assign({}, _this.toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_0__canvas_model__["c" /* Position */](absPosition) }));
         };
@@ -2096,8 +2124,8 @@ var BasicAnchor = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Path; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__anchor_anchor_factory__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__anchor_anchor_model__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__canvas_model__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__drawable_drawable_model__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__canvas_model__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__drawable_drawable_model__ = __webpack_require__(31);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -2127,6 +2155,7 @@ var Path = /** @class */ (function (_super) {
         _this.setRouteParentPath = function (path) {
             return new Path(__assign({}, _this.toObject(), { children: _this.children.map(function (child) { return child.setRouteParentPath(path.push(_this.idx)); }), routeParentPath: path }));
         };
+        _this.setIndex = function (idx) { return new Path(__assign({}, _this.toObject(), { idx: idx })); };
         _this.toPath = function () {
             return _this.children.reduce(function (acc, anchor) { return acc + " " + anchor.toPath(); }, '').concat(_this.isZipped ? ' z' : '');
         };
@@ -2871,7 +2900,7 @@ var DirectSelectiontoolEpics = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PentoolEpics; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_observable__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
@@ -2952,7 +2981,7 @@ var PentoolEpics = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_observable__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__ = __webpack_require__(363);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_last__ = __webpack_require__(366);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_last___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_last__);
@@ -2972,9 +3001,10 @@ var PentoolEpics = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__canvas_anchor_anchor_action__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__canvas_path_path_action__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__color_rim_rim_model__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pentool_action__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__canvas_drawable_drawable_model__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__canvas_path_path_action__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__color_rim_rim_model__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pentool_action__ = __webpack_require__(65);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2987,6 +3017,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * NEED SOME MORE REFINEMENTS!
  */
+
 
 
 
@@ -3039,7 +3070,7 @@ var PentoolDrawEpics = /** @class */ (function () {
                 return function (action) {
                     var position = action.payload[positionKey];
                     var targetIn = store.getState().toolbox.selected.others.get('activePathIn').toJS();
-                    var idx = store.getState().canvas.getIn(['root'].concat(targetIn)).children.size - 1;
+                    var idx = store.getState().canvas.getIn(__WEBPACK_IMPORTED_MODULE_14__canvas_drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)).children.size - 1;
                     if (shouldAdjust) {
                         var boardState = store.getState().canvas.board.toJS();
                         position = calcPositionOnCanvas(action.payload, boardState);
@@ -3049,44 +3080,44 @@ var PentoolDrawEpics = /** @class */ (function () {
             };
             var lastAnchorType;
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS)
+                .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS)
                 .throttle(function () { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_14__canvas_path_path_action__["a" /* PathActionType */].PATH_ZIP_PATH)
-                .switchMap(function () { return action$.ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS); }); })
+                .ofType(__WEBPACK_IMPORTED_MODULE_15__canvas_path_path_action__["a" /* PathActionType */].PATH_ZIP_PATH)
+                .switchMap(function () { return action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS); }); })
                 .map(function (action) { return _this.pathActions.createNewIn(store.getState().canvas.isolate.toArray(), calcPositionOnCanvas(action.payload, store.getState().canvas.board.toJS())); })
                 .map(function (action) { return _this.pentoolActions.changeActivePathAction(action.payload.parentIn.concat([-1])); })
-                .map(function (action) { return _this.pathActions.changeColor(action.payload, __WEBPACK_IMPORTED_MODULE_15__color_rim_rim_model__["b" /* ColorAttribute */].Fill, store.getState().color.rim.fill.color.toRGBString()); })
-                .map(function (action) { return _this.pathActions.changeColor(action.payload.targetIn, __WEBPACK_IMPORTED_MODULE_15__color_rim_rim_model__["b" /* ColorAttribute */].Outline, store.getState().color.rim.outline.color.toRGBString()); })
+                .map(function (action) { return _this.pathActions.changeColor(action.payload, __WEBPACK_IMPORTED_MODULE_16__color_rim_rim_model__["b" /* ColorAttribute */].Fill, store.getState().color.rim.fill.color.toRGBString()); })
+                .map(function (action) { return _this.pathActions.changeColor(action.payload.targetIn, __WEBPACK_IMPORTED_MODULE_16__color_rim_rim_model__["b" /* ColorAttribute */].Outline, store.getState().color.rim.outline.color.toRGBString()); })
                 .switchMap(function () {
-                return Object(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__["raceStatic"])(action$.ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS).take(1)
+                return Object(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__["raceStatic"])(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS).take(1)
                     .map(addAnchorWithStore(store, 'absPoint', true))
-                    .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].LineTo; }), action$.ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS).take(1) // Take only the first and place an anchor
+                    .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].LineTo; }), action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS).take(1) // Take only the first and place an anchor
                     .map(addAnchorWithStore(store, 'absPoint', true, __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].CubicBezierCurve))
                     .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].CubicBezierCurve; })
                     .switchMap(function () { return action$ // Update anchor position each move
-                    .ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
+                    .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
                     .map(updateAnchorPosWithStore(store, 'absPoint', true))
                     .map(function (action) { return _this.anchorActions.updateBezierHandle(action.payload.targetIn, action.payload.idx, action.payload.position, 'both'); }); })
-                    .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS)))
+                    .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS)))
                     .last()
                     .switchMap(function () { return action$ // For next movements
-                    .ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
+                    .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
                     .throttle(function () { return action$ // Do this after the `switchMap()` below and skip that while this executing (dragging)
-                    .ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS)
-                    .mergeMap(function (downAction) { return Object(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__["raceStatic"])(action$.ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS).take(1)
+                    .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS)
+                    .mergeMap(function (downAction) { return Object(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__["raceStatic"])(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS).take(1)
                     .map(addAnchorWithStore(store, 'absPoint', true))
-                    .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].LineTo; }), action$.ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS).take(1)
+                    .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].LineTo; }), action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS).take(1)
                     .map(addAnchorWithStore(store, 'absPoint', true, __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].SmoothCurveTo))
                     .map(function (action) {
                     if (lastAnchorType === __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].LineTo) {
                         var targetIn = store.getState().toolbox.selected.others.get('activePathIn').toJS();
-                        var idx = store.getState().canvas.getIn(['root'].concat(targetIn)).children.size - 1;
+                        var idx = store.getState().canvas.getIn(__WEBPACK_IMPORTED_MODULE_14__canvas_drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)).children.size - 1;
                         return _this.anchorActions.changeType(action.payload.targetIn, idx - 1, __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].SmoothCurveTo);
                     }
                     return action;
                 })
                     .switchMap(function () { return action$
-                    .ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
+                    .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
                     .map(updateAnchorPosWithStore(store, 'absPoint', true))
                     .map(function (action) { return _this.anchorActions.updateBezierHandle(action.payload.targetIn, action.payload.idx, action.payload.position); })
                     .map(function (action) {
@@ -3099,11 +3130,11 @@ var PentoolDrawEpics = /** @class */ (function () {
                     return _this.anchorActions.updateBezierHandle(action.payload.targetIn, action.payload.idx - 1, position, 'end');
                 }); })
                     .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].SmoothCurveTo; })
-                    .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS))).last(); }); })
+                    .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS))).last(); }); })
                     .switchMap(function () {
                     var anchorIdx;
                     return action$
-                        .ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
+                        .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
                         .map(updateAnchorPosWithStore(store, 'absPoint', true))
                         .do(function (action) { return anchorIdx = action.payload.idx; })
                         .filter(function () {
@@ -3111,16 +3142,16 @@ var PentoolDrawEpics = /** @class */ (function () {
                             || lastAnchorType === __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].SmoothCurveTo;
                     })
                         .map(function (action) { return _this.anchorActions.updateBezierHandle(action.payload.targetIn, anchorIdx, action.payload.position, 'end'); })
-                        .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_16__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS));
+                        .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS));
                 }); })
-                    .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_14__canvas_path_path_action__["a" /* PathActionType */].PATH_ZIP_PATH));
+                    .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_15__canvas_path_path_action__["a" /* PathActionType */].PATH_ZIP_PATH));
             })
                 .mapTo(doneAction); };
         };
     }
     PentoolDrawEpics = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_16__pentool_action__["b" /* PentoolActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_16__pentool_action__["b" /* PentoolActions */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_12__canvas_anchor_anchor_action__["b" /* AnchorActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12__canvas_anchor_anchor_action__["b" /* AnchorActions */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_14__canvas_path_path_action__["b" /* PathActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14__canvas_path_path_action__["b" /* PathActions */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_17__pentool_action__["b" /* PentoolActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_17__pentool_action__["b" /* PentoolActions */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_12__canvas_anchor_anchor_action__["b" /* AnchorActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_12__canvas_anchor_anchor_action__["b" /* AnchorActions */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_15__canvas_path_path_action__["b" /* PathActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_15__canvas_path_path_action__["b" /* PathActions */]) === "function" && _c || Object])
     ], PentoolDrawEpics);
     return PentoolDrawEpics;
     var _a, _b, _c;
@@ -3138,15 +3169,17 @@ var PentoolDrawEpics = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SelectiontoolEpics; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_observable__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__canvas_drawable_drawable_action__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvas_drawable_drawable_model__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__color_rim_rim_model__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__color_slider_slider_action__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__toolbox_action__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__selectiontool_action__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__selectiontool_model__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_immutable__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_immutable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_observable__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvas_drawable_drawable_action__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_drawable_drawable_model__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__color_rim_rim_model__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__color_slider_slider_action__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__toolbox_action__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__toolbox_model__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__selectiontool_action__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__selectiontool_model__ = __webpack_require__(226);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3166,7 +3199,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var doneAction = { type: 'DONE', payload: undefined, meta: undefined };
+var findMostCommonAncestor = function (routePaths) {
+    return routePaths.reduce(function (common, path) {
+        return common.reduce(function (acc, val, idx) { return val === path.get(idx) ? acc.push(val) : acc; }, Object(__WEBPACK_IMPORTED_MODULE_1_immutable__["List"])([]));
+    }, routePaths.get(0));
+};
 var SelectiontoolEpics = /** @class */ (function () {
     function SelectiontoolEpics(toolboxActions, drawableActions, sliderActions) {
         var _this = this;
@@ -3175,46 +3214,65 @@ var SelectiontoolEpics = /** @class */ (function () {
         this.sliderActions = sliderActions;
         this.createEpics = function () {
             return [
-                Object(__WEBPACK_IMPORTED_MODULE_1_redux_observable__["a" /* createEpicMiddleware */])(_this.setSelectiontoolTraitOnSelected()),
-                Object(__WEBPACK_IMPORTED_MODULE_1_redux_observable__["a" /* createEpicMiddleware */])(_this.selectDrawableOnClick()),
-                Object(__WEBPACK_IMPORTED_MODULE_1_redux_observable__["a" /* createEpicMiddleware */])(_this.deselectOnClickAway()),
-                Object(__WEBPACK_IMPORTED_MODULE_1_redux_observable__["a" /* createEpicMiddleware */])(_this.changeColorPickerOnSelect(__WEBPACK_IMPORTED_MODULE_4__color_rim_rim_model__["b" /* ColorAttribute */].Fill)),
-                Object(__WEBPACK_IMPORTED_MODULE_1_redux_observable__["a" /* createEpicMiddleware */])(_this.changeColorPickerOnSelect(__WEBPACK_IMPORTED_MODULE_4__color_rim_rim_model__["b" /* ColorAttribute */].Outline)),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.setSelectiontoolTraitOnSelected()),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.selectDrawableOnClick()),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.deselectOnClickAway()),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.changeColorPickerOnSelect(__WEBPACK_IMPORTED_MODULE_5__color_rim_rim_model__["b" /* ColorAttribute */].Fill)),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.changeColorPickerOnSelect(__WEBPACK_IMPORTED_MODULE_5__color_rim_rim_model__["b" /* ColorAttribute */].Outline)),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.deleteObjectWhenPressed()),
             ];
         };
         this.setSelectiontoolTraitOnSelected = function () {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_6__toolbox_action__["a" /* ToolboxActionType */].TOOLBOX_SELECT_TOOL)
-                .filter(function (action) { return action.payload.toolName === __WEBPACK_IMPORTED_MODULE_7__toolbox_model__["a" /* ToolName */].Selectiontool; })
-                .map(function (action) { return _this.toolboxActions.setToolTraitAction(Object(__WEBPACK_IMPORTED_MODULE_9__selectiontool_model__["a" /* createSelectiontool */])()); }); };
+                .ofType(__WEBPACK_IMPORTED_MODULE_7__toolbox_action__["a" /* ToolboxActionType */].TOOLBOX_SELECT_TOOL)
+                .filter(function (action) { return action.payload.toolName === __WEBPACK_IMPORTED_MODULE_8__toolbox_model__["a" /* ToolName */].Selectiontool; })
+                .map(function (action) { return _this.toolboxActions.setToolTraitAction(Object(__WEBPACK_IMPORTED_MODULE_10__selectiontool_model__["a" /* createSelectiontool */])()); }); };
         };
         this.selectDrawableOnClick = function () {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_8__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
+                .ofType(__WEBPACK_IMPORTED_MODULE_9__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
                 .map(function (action) { return _this.drawableActions.selectAction(action.payload); })
                 .mapTo(doneAction); }; // Preventing double dispatch
         };
         this.deselectOnClickAway = function () {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_8__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS)
+                .ofType(__WEBPACK_IMPORTED_MODULE_9__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS)
                 .map(function (action) { return _this.drawableActions.deselectAllAction(); })
                 .mapTo(doneAction); }; // Preventing double dispatch
         };
         this.changeColorPickerOnSelect = function (attribute) {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_8__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
+                .ofType(__WEBPACK_IMPORTED_MODULE_9__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
                 .map(function (action) {
-                var path = store.getState().canvas.root.getIn(__WEBPACK_IMPORTED_MODULE_3__canvas_drawable_drawable_model__["a" /* Drawable */].toRoutePath(action.payload));
+                var path = store.getState().canvas.getIn(__WEBPACK_IMPORTED_MODULE_4__canvas_drawable_drawable_model__["a" /* Drawable */].toRoutePath(action.payload));
                 if (typeof path !== 'undefined') {
                     return _this.sliderActions.changeColor(attribute, path[attribute]);
                 }
                 return doneAction;
             }); };
         };
+        this.deleteObjectWhenPressed = function () {
+            return function (action$, store) { return action$
+                .ofType(__WEBPACK_IMPORTED_MODULE_9__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_KEY_DOWN_ON_WINDOW)
+                .filter(function (action) {
+                var e = action.payload;
+                var key = e.which || e.keyCode;
+                return key === 8; // Delete key
+            })
+                .do(function () { return store.getState().canvas.selected.forEach(function (targetIn) {
+                return _this.drawableActions.deleteDrawableAction(targetIn.toArray());
+            }); })
+                .do(function () {
+                var parentIn = findMostCommonAncestor(store.getState().canvas.selected);
+                _this.drawableActions.refreshAllRoutePathIn(parentIn.slice(0, -1).toArray());
+            })
+                .map(function () { return _this.drawableActions.deselectAllAction(); })
+                .mapTo(doneAction); };
+        };
     }
     SelectiontoolEpics = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_6__toolbox_action__["b" /* ToolboxActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__toolbox_action__["b" /* ToolboxActions */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__canvas_drawable_drawable_action__["b" /* DrawableActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__canvas_drawable_drawable_action__["b" /* DrawableActions */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__color_slider_slider_action__["b" /* SliderActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__color_slider_slider_action__["b" /* SliderActions */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_7__toolbox_action__["b" /* ToolboxActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__toolbox_action__["b" /* ToolboxActions */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__canvas_drawable_drawable_action__["b" /* DrawableActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__canvas_drawable_drawable_action__["b" /* DrawableActions */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__color_slider_slider_action__["b" /* SliderActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__color_slider_slider_action__["b" /* SliderActions */]) === "function" && _c || Object])
     ], SelectiontoolEpics);
     return SelectiontoolEpics;
     var _a, _b, _c;
@@ -3248,12 +3306,16 @@ var createSelectiontool = function () {
     var mouseDownOnCanvas = function (e) {
         return actions.mouseDownOnCanvas();
     };
+    var keyDownOnWindow = function (e) {
+        return actions.keyDownOnWindow(e);
+    };
     return new __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__["a" /* ToolBase */]({
         name: __WEBPACK_IMPORTED_MODULE_2__toolbox_model__["a" /* ToolName */].Selectiontool,
         listeners: Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([
             { name: 'mousedown', handler: mouseDownOnDrawable, target: 'path' },
             { name: 'mousedown', handler: mouseDownOnDrawable, target: 'group' },
             { name: 'mousedown', handler: mouseDownOnCanvas, target: 'canvas' },
+            { name: 'keydown', handler: keyDownOnWindow, target: 'window' },
         ]),
     });
 };
@@ -3832,7 +3894,7 @@ module.exports = module.exports.toString();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CanvasModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_anchor_module__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__boundingbox_boundingbox_component__ = __webpack_require__(296);
@@ -3907,7 +3969,7 @@ var CanvasModule = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnchorModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_action__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__anchor_container_component__ = __webpack_require__(194);
@@ -4068,7 +4130,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_reducer__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__drawable_drawable_model__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__drawable_drawable_model__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4225,26 +4287,26 @@ var anchorReducer = function (state, action) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updatePosition; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return changeType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updateBezierHandle; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__anchor_factory__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_model__ = __webpack_require__(22);
 
 
 
 var updatePosition = function (state, targetIn, idx, newPosition) {
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)), function (accessedPath) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (accessedPath) {
         return accessedPath.updateAnchor(idx, newPosition);
     });
 };
 var changeType = function (state, targetIn, idx, anchorType) {
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)), function (accessedPath) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (accessedPath) {
         var anchor = __WEBPACK_IMPORTED_MODULE_1__anchor_factory__["a" /* AnchorFactory */].createAnchor(anchorType, accessedPath.children.get(idx).toObject());
         return accessedPath.replaceAnchor(idx, anchor);
     });
 };
 var updateBezierHandle = function (state, targetIn, idx, newPosition, which) {
     if (which === void 0) { which = 'start'; }
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)), function (accessedPath) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_0__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (accessedPath) {
         var anchor = accessedPath.children.get(idx);
         switch (anchor.anchorType) {
             case __WEBPACK_IMPORTED_MODULE_2__anchor_model__["a" /* AnchorType */].QuadraticBezierCurve:
@@ -4269,7 +4331,7 @@ var updateBezierHandle = function (state, targetIn, idx, newPosition, which) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CubicBezierAnchor; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_model__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_model__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_model__ = __webpack_require__(22);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -4303,6 +4365,7 @@ var QuadraticBezierAnchor = /** @class */ (function (_super) {
         _this.setRouteParentPath = function (path) {
             return new QuadraticBezierAnchor(__assign({}, (_this.toObject()), { routeParentPath: path }));
         };
+        _this.setIndex = function (idx) { return new QuadraticBezierAnchor(__assign({}, _this.toObject(), { idx: idx })); };
         _this.setPosition = function (absPosition) {
             return new QuadraticBezierAnchor(__assign({}, (_this.toObject()), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](absPosition) }));
         };
@@ -4348,6 +4411,7 @@ var CubicBezierAnchor = /** @class */ (function (_super) {
         _this.setRouteParentPath = function (path) {
             return new CubicBezierAnchor(__assign({}, _this.toObject(), { routeParentPath: path }));
         };
+        _this.setIndex = function (idx) { return new CubicBezierAnchor(__assign({}, _this.toObject(), { idx: idx })); };
         _this.setPosition = function (absPosition) {
             return new CubicBezierAnchor(__assign({}, _this.toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](absPosition) }));
         };
@@ -4404,7 +4468,7 @@ var CubicBezierAnchor = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SmoothQuadraticAnchor; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_model__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_model__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_model__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__basic_basic_model__ = __webpack_require__(202);
 var __extends = (this && this.__extends) || (function () {
@@ -4440,6 +4504,7 @@ var SmoothAnchor = /** @class */ (function (_super) {
         _this.setRouteParentPath = function (path) {
             return new SmoothAnchor(__assign({}, _this.toObject(), { routeParentPath: path }));
         };
+        _this.setIndex = function (idx) { return new SmoothAnchor(__assign({}, _this.toObject(), { idx: idx })); };
         _this.setPosition = function (absPosition) {
             return new SmoothAnchor(__assign({}, _this.toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](absPosition) }));
         };
@@ -4498,7 +4563,7 @@ var SmoothQuadraticAnchor = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateTopLeft; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updateScale; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateMoved; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__canvas_model__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__canvas_model__ = __webpack_require__(35);
 
 var MIN_CANVAS_SCALE = 0.2;
 var MAX_CANVAS_SCALE = 2;
@@ -4527,15 +4592,21 @@ var drawableReducer = function (state, action) {
     switch (action.type) {
         case __WEBPACK_IMPORTED_MODULE_0__drawable_action__["a" /* DrawableActionType */].DRAWABLE_SELECT:
             var selectAction = action;
-            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["d" /* selectDrawable */](state, selectAction.payload);
+            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["f" /* selectDrawable */](state, selectAction.payload);
         case __WEBPACK_IMPORTED_MODULE_0__drawable_action__["a" /* DrawableActionType */].DRAWABLE_ADD_SELECT:
             var addSelectAction = action;
             return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["a" /* addSelectDrawable */](state, addSelectAction.payload);
         case __WEBPACK_IMPORTED_MODULE_0__drawable_action__["a" /* DrawableActionType */].DRAWABLE_DESELECT:
             var deselectAction = action;
-            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["c" /* deselectDrawable */](state, deselectAction.payload);
+            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["d" /* deselectDrawable */](state, deselectAction.payload);
         case __WEBPACK_IMPORTED_MODULE_0__drawable_action__["a" /* DrawableActionType */].DRAWABLE_DESELECT_ALL:
-            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["b" /* deselectAllDrawable */](state);
+            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["c" /* deselectAllDrawable */](state);
+        case __WEBPACK_IMPORTED_MODULE_0__drawable_action__["a" /* DrawableActionType */].DRAWABLE_DELETE:
+            var deleteAction = action;
+            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["b" /* deleteDrawable */](state, deleteAction.payload);
+        case __WEBPACK_IMPORTED_MODULE_0__drawable_action__["a" /* DrawableActionType */].DRAWABLE_REFRESH_ALL_ROUTE_PATH_IN:
+            var refreshAction = action;
+            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["e" /* refreshAllRoutePathIn */](state, refreshAction.payload);
     }
     return state;
 };
@@ -4546,12 +4617,16 @@ var drawableReducer = function (state, action) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return selectDrawable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return selectDrawable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addSelectDrawable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return deselectDrawable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return deselectAllDrawable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return deselectDrawable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return deselectAllDrawable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return deleteDrawable; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return refreshAllRoutePathIn; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawable_model__ = __webpack_require__(31);
+
 
 var selectDrawable = function (state, targetIn) {
     return state.set('selected', Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])(targetIn)]));
@@ -4564,6 +4639,14 @@ var deselectDrawable = function (state, targetIn) {
 };
 var deselectAllDrawable = function (state) {
     return state.set('selected', Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]));
+};
+var deleteDrawable = function (state, targetIn) {
+    return state.removeIn(__WEBPACK_IMPORTED_MODULE_1__drawable_model__["a" /* Drawable */].toRoutePath(targetIn));
+};
+var refreshAllRoutePathIn = function (state, parentIn) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_1__drawable_model__["a" /* Drawable */].toRoutePath(parentIn), function (children) {
+        return children.map(function (drawable, idx) { return drawable.setRouteParentPath(Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])(parentIn)).setIndex(idx); });
+    });
 };
 //# sourceMappingURL=drawable.core.js.map
 
@@ -4615,15 +4698,15 @@ var pathReducer = function (state, action) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return changeColor; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_model__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_model__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__path_model__ = __webpack_require__(203);
 
 
 
 
 var createNewIn = function (state, parentIn, startPosition) {
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(parentIn, true)), function (children) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(parentIn, true), function (children) {
         return children.push(new __WEBPACK_IMPORTED_MODULE_3__path_model__["a" /* Path */]({
             routeParentPath: Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])(parentIn),
             idx: children.size,
@@ -4632,27 +4715,27 @@ var createNewIn = function (state, parentIn, startPosition) {
     });
 };
 var addAnchor = function (state, targetIn, anchorPosition, anchorType) {
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)), function (accessedPath) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (accessedPath) {
         return accessedPath.addAnchor(anchorPosition, anchorType);
     });
 };
 var removeAnchor = function (state, targetIn, idx) {
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)), function (accessedPath) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (accessedPath) {
         return accessedPath.removeAnchor(idx);
     });
 };
 var removeLastAnhcor = function (state, targetIn) {
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)), function (accessedPath) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (accessedPath) {
         return accessedPath.removeLastAnchor();
     });
 };
 var zipPath = function (state, targetIn) {
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)), function (accessedPath) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (accessedPath) {
         return accessedPath.zip();
     });
 };
 var changeColor = function (state, targetIn, attribute, color) {
-    return state.updateIn(['root'].concat(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn)), function (accessedPath) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_2__drawable_drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (accessedPath) {
         return accessedPath.setColor(attribute, color);
     });
 };
@@ -4692,7 +4775,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_combineLatest__ = __webpack_require__(309);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_combineLatest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_combineLatest__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
@@ -4714,16 +4797,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var DAMP_SCROLL = 200;
 var DEBOUNCE_TIME = 20;
-var filterListener = function (listeners$) {
+var filterListener = function (target) { return function (listeners$) {
     return listeners$.map(function (listeners) { return listeners
-        .filter(function (listener) { return listener.target === 'canvas'; }); });
-};
+        .filter(function (listener) { return listener.target === target; }); });
+}; };
 var CanvasComponent = /** @class */ (function () {
     function CanvasComponent(rd, canvasActions) {
         var _this = this;
         this.rd = rd;
         this.canvasActions = canvasActions;
         this.listeners = [];
+        this.windowListeners = [];
         this.dispatchRegisteredAction = function (handler, e) {
             return handler(e);
         };
@@ -4770,6 +4854,14 @@ var CanvasComponent = /** @class */ (function () {
                 _this.listeners.push(_this.rd.listen(_this.canvasRef.nativeElement, listener.name, function (e) { _this.dispatchRegisteredAction(listener.handler, e); }));
             });
         });
+        // Window listeners as dictated by toolbox
+        this.windowListeners$.subscribe(function (listeners) {
+            // clear listener from pevious tool
+            _this.windowListeners.forEach(function (listenerToDestroy) { return listenerToDestroy(); });
+            listeners.forEach(function (listener) {
+                _this.windowListeners.push(_this.rd.listen('window', listener.name, function (e) { _this.dispatchRegisteredAction(listener.handler, e); }));
+            });
+        });
     };
     CanvasComponent.prototype.trackById = function (idx, drawable) {
         return drawable.id;
@@ -4791,9 +4883,13 @@ var CanvasComponent = /** @class */ (function () {
         __metadata("design:type", typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"]) === "function" && _d || Object)
     ], CanvasComponent.prototype, "moved$", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["select$"])(['toolbox', 'selected', 'listeners'], filterListener),
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["select$"])(['toolbox', 'selected', 'listeners'], filterListener('canvas')),
         __metadata("design:type", typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"]) === "function" && _f || Object)
     ], CanvasComponent.prototype, "listeners$", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["select$"])(['toolbox', 'selected', 'listeners'], filterListener('window')),
+        __metadata("design:type", typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"]) === "function" && _g || Object)
+    ], CanvasComponent.prototype, "windowListeners$", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
         __metadata("design:type", Object)
@@ -4814,10 +4910,10 @@ var CanvasComponent = /** @class */ (function () {
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].Emulated,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
-        __metadata("design:paramtypes", [typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["Renderer2"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["Renderer2"]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_5__canvas_action__["b" /* CanvasActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__canvas_action__["b" /* CanvasActions */]) === "function" && _h || Object])
+        __metadata("design:paramtypes", [typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["Renderer2"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["Renderer2"]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_5__canvas_action__["b" /* CanvasActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__canvas_action__["b" /* CanvasActions */]) === "function" && _j || Object])
     ], CanvasComponent);
     return CanvasComponent;
-    var _a, _b, _c, _d, _f, _g, _h;
+    var _a, _b, _c, _d, _f, _g, _h, _j;
 }());
 
 //# sourceMappingURL=canvas.component.js.map
@@ -4868,7 +4964,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__group_group_component__ = __webpack_require__(210);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__path_path_component__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__drawable_directive__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__drawable_model__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__drawable_model__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5017,7 +5113,7 @@ module.exports = module.exports.toString();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ColorModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__color_component__ = __webpack_require__(331);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__color_epics__ = __webpack_require__(214);
@@ -5220,7 +5316,6 @@ var sliderReducer = function (state, action) {
             return state.updateIn(['rim', changeByChannel_1.payload.attribute, 'color'], function (color) { return color.set(changeByChannel_1.payload.channel, changeByChannel_1.payload.value); });
         case __WEBPACK_IMPORTED_MODULE_0__slider_action__["a" /* SliderActionType */].SLIDER_CHANGE_COLOR:
             var changeColor = action;
-            console.log(changeColor.payload.color);
             return state.setIn(['rim', changeColor.payload.attribute, 'color'], changeColor.payload.color);
     }
     return state;
@@ -5433,6 +5528,7 @@ var RimComponent = /** @class */ (function () {
             selector: 'app-rim-color',
             template: __webpack_require__(348),
             styles: [__webpack_require__(349)],
+            changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
         __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__rim_action__["b" /* RimActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__rim_action__["b" /* RimActions */]) === "function" && _c || Object])
     ], RimComponent);
@@ -5625,7 +5721,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, ".colorSlider {\n  position: relative;\n  width: 128px;\n  height: 10px;\n  border-radius: 5px;\n  margin: 10px;\n  box-shadow: 0 2.5px 20px -2.5px rgba(0, 0, 0, 0.1) inset; }\n  .colorSlider .colorSlider__handle {\n    width: 20px;\n    height: 20px;\n    position: absolute;\n    left: -10px;\n    top: -5px;\n    background: white;\n    box-shadow: 2.5px 2.5px 20px -2.5px rgba(0, 0, 0, 0.4);\n    border-radius: 50%; }\n    .colorSlider .colorSlider__handle:hover {\n      cursor: -webkit-grab;\n      cursor: grab; }\n    .colorSlider .colorSlider__handle:active {\n      cursor: -webkit-grabbing;\n      cursor: grabbing; }\n", ""]);
+exports.push([module.i, ".colorSlider {\n  position: relative;\n  width: 128px;\n  height: 10px;\n  border-radius: 5px;\n  margin: 10px;\n  box-shadow: 0 2.5px 20px -2.5px rgba(0, 0, 0, 0.1) inset; }\n  .colorSlider .colorSlider__handle {\n    width: 20px;\n    height: 20px;\n    position: absolute;\n    left: -10px;\n    top: -5px;\n    background: white;\n    box-shadow: 2.5px 2.5px 20px -2.5px rgba(0, 0, 0, 0.4);\n    border-radius: 50%;\n    transition: transform .1s ease; }\n    .colorSlider .colorSlider__handle:hover {\n      cursor: -webkit-grab;\n      cursor: grab; }\n    .colorSlider .colorSlider__handle:active {\n      cursor: -webkit-grabbing;\n      cursor: grabbing; }\n", ""]);
 
 // exports
 
@@ -5967,7 +6063,7 @@ var selectiontoolReducer = function (state, action) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ToolboxModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__canvastool_canvastool_component__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvastool_canvastool_epics__ = __webpack_require__(217);
@@ -6404,7 +6500,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-// import { HomeComponent } from './components/home/home.component';
 
 
 var routes = [];
