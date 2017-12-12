@@ -228,7 +228,6 @@ var Drawable = /** @class */ (function (_super) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return Position; });
-/* unused harmony export Position3D */
 /* unused harmony export Quaternion */
 /* unused harmony export Size */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Board; });
@@ -260,14 +259,6 @@ var Position = /** @class */ (function (_super) {
         return _super.call(this, params) || this;
     }
     return Position;
-}(Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["Record"])({ x: 0, y: 0 })));
-
-var Position3D = /** @class */ (function (_super) {
-    __extends(Position3D, _super);
-    function Position3D(params) {
-        return _super.call(this, params) || this;
-    }
-    return Position3D;
 }(Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["Record"])({ x: 0, y: 0, z: 0 })));
 
 var Quaternion = /** @class */ (function (_super) {
@@ -312,6 +303,7 @@ var initCanvasState = {
     board: new Board(initBoardAttributes),
     selected: Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]),
     isolate: Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([]),
+    history: __WEBPACK_IMPORTED_MODULE_0_immutable__["Stack"].of(Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])([])),
 };
 var CanvasState = /** @class */ (function (_super) {
     __extends(CanvasState, _super);
@@ -351,6 +343,95 @@ var CanvasState = /** @class */ (function (_super) {
 /* 60 */,
 /* 61 */,
 /* 62 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CanvasActionType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CanvasActions; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Using CONSTANT naming convention and holding same value
+ * to be able to check if an enum value is in enum keys
+ */
+var CanvasActionType;
+(function (CanvasActionType) {
+    CanvasActionType["CANVAS_UPDATE_TOP_LEFT"] = "CANVAS_UPDATE_TOP_LEFT";
+    CanvasActionType["CANVAS_UPDATE_SCALE"] = "CANVAS_UPDATE_SCALE";
+    CanvasActionType["CANVAS_UPDATE_MOVED"] = "CANVAS_UPDATE_MOVED";
+    CanvasActionType["CANVAS_PUSH_HISTORY"] = "CANVAS_PUSH_HISTORY";
+    CanvasActionType["CANVAS_POP_HISTORY"] = "CANVAS_POP_HISTORY";
+})(CanvasActionType || (CanvasActionType = {}));
+var CanvasActions = /** @class */ (function () {
+    function CanvasActions() {
+        this.updateTopLeft = function (position) { return ({
+            type: CanvasActionType.CANVAS_UPDATE_TOP_LEFT,
+            payload: position,
+            meta: undefined,
+        }); };
+        this.updateScale = function (scaleBy) { return ({
+            type: CanvasActionType.CANVAS_UPDATE_SCALE,
+            payload: scaleBy,
+            meta: undefined,
+        }); };
+        this.updateMoved = function (position) { return ({
+            type: CanvasActionType.CANVAS_UPDATE_MOVED,
+            payload: position,
+            meta: undefined,
+        }); };
+        this.pushHistory = function () { return ({
+            type: CanvasActionType.CANVAS_PUSH_HISTORY,
+            payload: undefined,
+            meta: undefined,
+        }); };
+        this.popHistory = function () { return ({
+            type: CanvasActionType.CANVAS_POP_HISTORY,
+            payload: undefined,
+            meta: undefined,
+        }); };
+    }
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
+        __metadata("design:type", Object)
+    ], CanvasActions.prototype, "updateTopLeft", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
+        __metadata("design:type", Object)
+    ], CanvasActions.prototype, "updateScale", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
+        __metadata("design:type", Object)
+    ], CanvasActions.prototype, "updateMoved", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
+        __metadata("design:type", Object)
+    ], CanvasActions.prototype, "pushHistory", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
+        __metadata("design:type", Object)
+    ], CanvasActions.prototype, "popHistory", void 0);
+    CanvasActions = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])()
+    ], CanvasActions);
+    return CanvasActions;
+}());
+
+//# sourceMappingURL=canvas.action.js.map
+
+/***/ }),
+/* 63 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -472,7 +553,7 @@ var PathActions = /** @class */ (function () {
 //# sourceMappingURL=path.action.js.map
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -482,7 +563,7 @@ var PathActions = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return RimState; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rim_color_model__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rim_color_model__ = __webpack_require__(214);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__rim_color_model__["a"]; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -535,14 +616,14 @@ var RimState = /** @class */ (function (_super) {
 //# sourceMappingURL=rim.model.js.map
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SliderActionType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SliderActions; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rim_rim_model__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rim_rim_model__ = __webpack_require__(64);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -591,7 +672,7 @@ var SliderActions = /** @class */ (function () {
 //# sourceMappingURL=slider.action.js.map
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -632,19 +713,19 @@ var PentoolActions = /** @class */ (function () {
          * dispatched by view components, not epics. If decorated, it will redundantly
          * dispatch twice.
          */
-        this.mouseDownOnCanvasAction = function (absPoint) { return ({
+        this.mouseDownOnCanvasAction = function (cursorPosition) { return ({
             type: PentoolActionType.PENTOOL_MOUSE_DOWN_ON_CANVAS,
-            payload: absPoint,
+            payload: cursorPosition,
             meta: undefined,
         }); };
-        this.mouseUpOnCanvasAction = function (absPoint) { return ({
+        this.mouseUpOnCanvasAction = function (cursorPosition) { return ({
             type: PentoolActionType.PENTOOL_MOUSE_UP_ON_CANVAS,
-            payload: absPoint,
+            payload: cursorPosition,
             meta: undefined,
         }); };
-        this.moveCursorOnCanvasAction = function (absPoint) { return ({
+        this.moveCursorOnCanvasAction = function (cursorPosition) { return ({
             type: PentoolActionType.PENTOOL_MOUSE_MOVE_ON_CANVAS,
-            payload: absPoint,
+            payload: cursorPosition,
             meta: undefined,
         }); };
         this.mouseDownOnAnchorAction = function (targetIn, idx) { return ({
@@ -671,7 +752,6 @@ var PentoolActions = /** @class */ (function () {
 //# sourceMappingURL=pentool.action.js.map
 
 /***/ }),
-/* 66 */,
 /* 67 */,
 /* 68 */,
 /* 69 */,
@@ -684,76 +764,9 @@ var PentoolActions = /** @class */ (function () {
 /* 76 */,
 /* 77 */,
 /* 78 */,
-/* 79 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CanvasActionType; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CanvasActions; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-/**
- * Using CONSTANT naming convention and holding same value
- * to be able to check if an enum value is in enum keys
- */
-var CanvasActionType;
-(function (CanvasActionType) {
-    CanvasActionType["CANVAS_UPDATE_TOP_LEFT"] = "CANVAS_UPDATE_TOP_LEFT";
-    CanvasActionType["CANVAS_UPDATE_SCALE"] = "CANVAS_UPDATE_SCALE";
-    CanvasActionType["CANVAS_UPDATE_MOVED"] = "CANVAS_UPDATE_MOVED";
-})(CanvasActionType || (CanvasActionType = {}));
-var CanvasActions = /** @class */ (function () {
-    function CanvasActions() {
-        this.updateTopLeft = function (position) { return ({
-            type: CanvasActionType.CANVAS_UPDATE_TOP_LEFT,
-            payload: position,
-            meta: undefined,
-        }); };
-        this.updateScale = function (scaleBy) { return ({
-            type: CanvasActionType.CANVAS_UPDATE_SCALE,
-            payload: scaleBy,
-            meta: undefined,
-        }); };
-        this.updateMoved = function (position) { return ({
-            type: CanvasActionType.CANVAS_UPDATE_MOVED,
-            payload: position,
-            meta: undefined,
-        }); };
-    }
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
-        __metadata("design:type", Object)
-    ], CanvasActions.prototype, "updateTopLeft", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
-        __metadata("design:type", Object)
-    ], CanvasActions.prototype, "updateScale", void 0);
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
-        __metadata("design:type", Object)
-    ], CanvasActions.prototype, "updateMoved", void 0);
-    CanvasActions = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])()
-    ], CanvasActions);
-    return CanvasActions;
-}());
-
-//# sourceMappingURL=canvas.action.js.map
-
-/***/ }),
-/* 80 */
+/* 79 */,
+/* 80 */,
+/* 81 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -782,10 +795,11 @@ var ToolBaseComponent = /** @class */ (function () {
 //# sourceMappingURL=tool.base.component.js.map
 
 /***/ }),
-/* 81 */,
 /* 82 */,
 /* 83 */,
-/* 84 */
+/* 84 */,
+/* 85 */,
+/* 86 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -819,7 +833,7 @@ var AnchorActions = /** @class */ (function () {
          * Don't forget to add `@dispatch()` if you want to achieve continuous dispatch.
          * Otherwise, it will be just passing to the next operator, and only the last action is dispatched
          */
-        this.updatePosition = function (targetIn, idx, position) {
+        this.setPosition = function (targetIn, idx, position) {
             return {
                 type: AnchorActionType.ANCHOR_UPDATE_POSITION,
                 payload: { targetIn: targetIn, idx: idx, position: position },
@@ -833,7 +847,7 @@ var AnchorActions = /** @class */ (function () {
                 meta: undefined,
             };
         };
-        this.updateBezierHandle = function (targetIn, idx, position, which) {
+        this.setBezierHandle = function (targetIn, idx, position, which) {
             if (which === void 0) { which = 'start'; }
             return {
                 type: AnchorActionType.ANCHOR_UPDATE_BEZIER_HANDLE,
@@ -845,7 +859,7 @@ var AnchorActions = /** @class */ (function () {
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
         __metadata("design:type", Object)
-    ], AnchorActions.prototype, "updatePosition", void 0);
+    ], AnchorActions.prototype, "setPosition", void 0);
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
         __metadata("design:type", Object)
@@ -853,7 +867,7 @@ var AnchorActions = /** @class */ (function () {
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
         __metadata("design:type", Object)
-    ], AnchorActions.prototype, "updateBezierHandle", void 0);
+    ], AnchorActions.prototype, "setBezierHandle", void 0);
     AnchorActions = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])()
     ], AnchorActions);
@@ -863,7 +877,7 @@ var AnchorActions = /** @class */ (function () {
 //# sourceMappingURL=anchor.action.js.map
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -891,6 +905,7 @@ var DrawableActionType;
     DrawableActionType["DRAWABLE_DESELECT_ALL"] = "DRAWABLE_DESELECT_ALL";
     DrawableActionType["DRAWABLE_DELETE"] = "DRAWABLE_DELETE";
     DrawableActionType["DRAWABLE_REFRESH_ALL_ROUTE_PATH_IN"] = "DRAWABLE_REFRESH_ALL_ROUTE_PATH_IN";
+    DrawableActionType["DRAWABLE_UPDATE_POSITION"] = "DRAWABLE_UPDATE_POSITION";
 })(DrawableActionType || (DrawableActionType = {}));
 var DrawableActions = /** @class */ (function () {
     function DrawableActions() {
@@ -924,6 +939,11 @@ var DrawableActions = /** @class */ (function () {
             payload: parentIn,
             meta: undefined,
         }); };
+        this.updatePosition = function (targetIn, projection) { return ({
+            type: DrawableActionType.DRAWABLE_UPDATE_POSITION,
+            payload: { targetIn: targetIn, projection: projection },
+            meta: undefined,
+        }); };
     }
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
@@ -949,6 +969,10 @@ var DrawableActions = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
         __metadata("design:type", Object)
     ], DrawableActions.prototype, "refreshAllRoutePathIn", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__["dispatch"])(),
+        __metadata("design:type", Object)
+    ], DrawableActions.prototype, "updatePosition", void 0);
     DrawableActions = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Injectable"])()
     ], DrawableActions);
@@ -958,21 +982,21 @@ var DrawableActions = /** @class */ (function () {
 //# sourceMappingURL=drawable.action.js.map
 
 /***/ }),
-/* 86 */,
-/* 87 */
+/* 88 */,
+/* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return colorPickerReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__color_model__ = __webpack_require__(332);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__opacity_opacity_action__ = __webpack_require__(336);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__opacity_opacity_reducer__ = __webpack_require__(337);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rim_rim_action__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__rim_rim_reducer__ = __webpack_require__(338);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__slider_slider_action__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__slider_slider_reducer__ = __webpack_require__(339);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__stroke_stroke_action__ = __webpack_require__(340);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__stroke_stroke_reducer__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__color_model__ = __webpack_require__(335);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__opacity_opacity_action__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__opacity_opacity_reducer__ = __webpack_require__(340);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__rim_rim_action__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__rim_rim_reducer__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__slider_slider_action__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__slider_slider_reducer__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__stroke_stroke_action__ = __webpack_require__(343);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__stroke_stroke_reducer__ = __webpack_require__(344);
 
 
 
@@ -999,7 +1023,7 @@ var colorPickerReducer = function (state, action) {
 //# sourceMappingURL=color.reducer.js.map
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1034,7 +1058,7 @@ var RimActions = /** @class */ (function () {
 //# sourceMappingURL=rim.action.js.map
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1063,7 +1087,7 @@ var ToolBase = /** @class */ (function (_super) {
 //# sourceMappingURL=tool.model.js.map
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1085,6 +1109,8 @@ var SelectiontoolActionType;
 (function (SelectiontoolActionType) {
     SelectiontoolActionType["SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE"] = "SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE";
     SelectiontoolActionType["SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS"] = "SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS";
+    SelectiontoolActionType["SELECTIONTOOL_MOUSE_MOVE_ON_CANVAS"] = "SELECTIONTOOL_MOUSE_MOVE_ON_CANVAS";
+    SelectiontoolActionType["SELECTIONTOOL_MOUSE_UP_ON_WINDOW"] = "SELECTIONTOOL_MOUSE_UP_ON_WINDOW";
     SelectiontoolActionType["SELECTIONTOOL_KEY_DOWN_ON_WINDOW"] = "SELECTIONTOOL_KEY_DOWN_ON_WINDOW";
 })(SelectiontoolActionType || (SelectiontoolActionType = {}));
 var SelectiontoolActions = /** @class */ (function () {
@@ -1095,13 +1121,23 @@ var SelectiontoolActions = /** @class */ (function () {
          * Here it does not need any `@dispatch()` decorator as it will only be
          * dispatched by view components, not epics
          */
-        this.mouseDownOnDrawableAction = function (targetIn) { return ({
+        this.mouseDownOnDrawableAction = function (targetIn, cursorPosition) { return ({
             type: SelectiontoolActionType.SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE,
-            payload: targetIn,
+            payload: { targetIn: targetIn, cursorPosition: cursorPosition },
             meta: undefined,
         }); };
         this.mouseDownOnCanvas = function () { return ({
             type: SelectiontoolActionType.SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS,
+        }); };
+        this.mouseMoveOnCanvas = function (cursorPosition) { return ({
+            type: SelectiontoolActionType.SELECTIONTOOL_MOUSE_MOVE_ON_CANVAS,
+            payload: cursorPosition,
+            meta: undefined,
+        }); };
+        this.mouseUpOnWindow = function () { return ({
+            type: SelectiontoolActionType.SELECTIONTOOL_MOUSE_UP_ON_WINDOW,
+            payload: undefined,
+            meta: undefined,
         }); };
         this.keyDownOnWindow = function (e) { return ({
             type: SelectiontoolActionType.SELECTIONTOOL_KEY_DOWN_ON_WINDOW,
@@ -1118,8 +1154,6 @@ var SelectiontoolActions = /** @class */ (function () {
 //# sourceMappingURL=selectiontool.action.js.map
 
 /***/ }),
-/* 91 */,
-/* 92 */,
 /* 93 */,
 /* 94 */,
 /* 95 */,
@@ -1131,16 +1165,18 @@ var SelectiontoolActions = /** @class */ (function () {
 /* 101 */,
 /* 102 */,
 /* 103 */,
-/* 104 */
+/* 104 */,
+/* 105 */,
+/* 106 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_reflect__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_reflect__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es7_reflect__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es7_reflect__ = __webpack_require__(130);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_zone_js_dist_zone_mix__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_zone_js_dist_zone_mix__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_zone_js_dist_zone_mix___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_zone_js_dist_zone_mix__);
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
@@ -1198,8 +1234,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //# sourceMappingURL=polyfills.js.map
 
 /***/ }),
-/* 105 */,
-/* 106 */,
 /* 107 */,
 /* 108 */,
 /* 109 */,
@@ -1250,30 +1284,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 154 */,
 /* 155 */,
 /* 156 */,
-/* 157 */
+/* 157 */,
+/* 158 */,
+/* 159 */
 /***/ (function(module, exports) {
 
 if(typeof require('events') === 'undefined') {var e = new Error("Cannot find module \"require('events')\""); e.code = 'MODULE_NOT_FOUND'; throw e;}
 module.exports = require('events');
 
 /***/ }),
-/* 158 */
+/* 160 */
 /***/ (function(module, exports) {
 
 if(typeof require('fs') === 'undefined') {var e = new Error("Cannot find module \"require('fs')\""); e.code = 'MODULE_NOT_FOUND'; throw e;}
 module.exports = require('fs');
 
 /***/ }),
-/* 159 */,
-/* 160 */,
-/* 161 */
+/* 161 */,
+/* 162 */,
+/* 163 */
 /***/ (function(module, exports) {
 
 if(typeof require('crypto') === 'undefined') {var e = new Error("Cannot find module \"require('crypto')\""); e.code = 'MODULE_NOT_FOUND'; throw e;}
 module.exports = require('crypto');
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1287,7 +1323,7 @@ var DrawableBaseComponent = /** @class */ (function () {
 //# sourceMappingURL=drawable.base.component.js.map
 
 /***/ }),
-/* 163 */
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1301,8 +1337,8 @@ var AnchorBaseComponent = /** @class */ (function () {
 //# sourceMappingURL=anchor.base.component.js.map
 
 /***/ }),
-/* 164 */,
-/* 165 */
+/* 166 */,
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1360,8 +1396,6 @@ var CanvastoolActions = /** @class */ (function () {
 //# sourceMappingURL=canvastool.action.js.map
 
 /***/ }),
-/* 166 */,
-/* 167 */,
 /* 168 */,
 /* 169 */,
 /* 170 */,
@@ -1445,7 +1479,7 @@ var ElectronService = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnchorComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawable_drawable_base_component__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawable_drawable_base_component__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_directive__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__anchor_model__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__basic_basic_component__ = __webpack_require__(196);
@@ -1527,8 +1561,8 @@ var AnchorComponent = /** @class */ (function (_super) {
     AnchorComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-anchor',
-            template: __webpack_require__(294),
-            styles: [__webpack_require__(295)],
+            template: __webpack_require__(295),
+            styles: [__webpack_require__(296)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
             changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
@@ -1588,7 +1622,7 @@ var AnchorDirective = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__anchor_anchor_model__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__anchor_base_component__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__anchor_base_component__ = __webpack_require__(165);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1681,8 +1715,8 @@ var BasicAnchorComponent = /** @class */ (function (_super) {
     BasicAnchorComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-anchor-basic',
-            template: __webpack_require__(288),
-            styles: [__webpack_require__(289)],
+            template: __webpack_require__(289),
+            styles: [__webpack_require__(290)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].None,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
@@ -1708,7 +1742,7 @@ var BasicAnchorComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__anchor_anchor_model__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__anchor_base_component__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__anchor_base_component__ = __webpack_require__(165);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1814,8 +1848,8 @@ var BezierAnchorComponent = /** @class */ (function (_super) {
     BezierAnchorComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-anchor-bezier',
-            template: __webpack_require__(290),
-            styles: [__webpack_require__(291)],
+            template: __webpack_require__(291),
+            styles: [__webpack_require__(292)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].None,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
@@ -1841,7 +1875,7 @@ var BezierAnchorComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__anchor_anchor_model__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__anchor_base_component__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__anchor_base_component__ = __webpack_require__(165);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1948,8 +1982,8 @@ var SmoothAnchorComponent = /** @class */ (function (_super) {
     SmoothAnchorComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-anchor-smooth',
-            template: __webpack_require__(292),
-            styles: [__webpack_require__(293)],
+            template: __webpack_require__(293),
+            styles: [__webpack_require__(294)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].None,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
@@ -1970,15 +2004,15 @@ var SmoothAnchorComponent = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return canvasReducer; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__anchor_anchor_action__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_anchor_reducer__ = __webpack_require__(297);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvas_action__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_core__ = __webpack_require__(301);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__anchor_anchor_action__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_anchor_reducer__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvas_action__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_core__ = __webpack_require__(302);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_model__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__drawable_drawable_action__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__drawable_drawable_reducer__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__path_path_action__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__path_path_reducer__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__drawable_drawable_action__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__drawable_drawable_reducer__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__path_path_action__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__path_path_reducer__ = __webpack_require__(305);
 
 
 
@@ -2006,11 +2040,15 @@ var canvasReducer = function (state, action) {
     }
     switch (action.type) {
         case __WEBPACK_IMPORTED_MODULE_3__canvas_action__["a" /* CanvasActionType */].CANVAS_UPDATE_TOP_LEFT:
-            return __WEBPACK_IMPORTED_MODULE_4__canvas_core__["c" /* updateTopLeft */](state, action.payload);
+            return __WEBPACK_IMPORTED_MODULE_4__canvas_core__["e" /* updateTopLeft */](state, action.payload);
         case __WEBPACK_IMPORTED_MODULE_3__canvas_action__["a" /* CanvasActionType */].CANVAS_UPDATE_SCALE:
-            return __WEBPACK_IMPORTED_MODULE_4__canvas_core__["b" /* updateScale */](state, action.payload);
+            return __WEBPACK_IMPORTED_MODULE_4__canvas_core__["d" /* updateScale */](state, action.payload);
         case __WEBPACK_IMPORTED_MODULE_3__canvas_action__["a" /* CanvasActionType */].CANVAS_UPDATE_MOVED:
-            return __WEBPACK_IMPORTED_MODULE_4__canvas_core__["a" /* updateMoved */](state, action.payload);
+            return __WEBPACK_IMPORTED_MODULE_4__canvas_core__["c" /* updateMoved */](state, action.payload);
+        case __WEBPACK_IMPORTED_MODULE_3__canvas_action__["a" /* CanvasActionType */].CANVAS_PUSH_HISTORY:
+            return __WEBPACK_IMPORTED_MODULE_4__canvas_core__["b" /* pushHistory */](state);
+        case __WEBPACK_IMPORTED_MODULE_3__canvas_action__["a" /* CanvasActionType */].CANVAS_POP_HISTORY:
+            return __WEBPACK_IMPORTED_MODULE_4__canvas_core__["a" /* popHistory */](state);
     }
     return state;
 };
@@ -2024,8 +2062,8 @@ var canvasReducer = function (state, action) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnchorFactory; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__anchor_model__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__basic_basic_model__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bezier_bezier_model__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__smooth_smooth_model__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bezier_bezier_model__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__smooth_smooth_model__ = __webpack_require__(301);
 
 
 
@@ -2094,6 +2132,9 @@ var BasicAnchor = /** @class */ (function (_super) {
             return new BasicAnchor(__assign({}, _this.toObject(), { routeParentPath: path }));
         };
         _this.setIndex = function (idx) { return new BasicAnchor(__assign({}, _this.toObject(), { idx: idx })); };
+        _this.updatePosition = function (projection) {
+            return new BasicAnchor(__assign({}, _this.toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_0__canvas_model__["c" /* Position */](projection(_this.absPosition)) }));
+        };
         _this.setPosition = function (absPosition) {
             return new BasicAnchor(__assign({}, _this.toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_0__canvas_model__["c" /* Position */](absPosition) }));
         };
@@ -2156,6 +2197,9 @@ var Path = /** @class */ (function (_super) {
             return new Path(__assign({}, _this.toObject(), { children: _this.children.map(function (child) { return child.setRouteParentPath(path.push(_this.idx)); }), routeParentPath: path }));
         };
         _this.setIndex = function (idx) { return new Path(__assign({}, _this.toObject(), { idx: idx })); };
+        _this.updatePosition = function (projection) {
+            return new Path(__assign({}, _this.toObject(), { children: _this.children.map(function (child) { return child.updatePosition(projection); }) }));
+        };
         _this.toPath = function () {
             return _this.children.reduce(function (acc, anchor) { return acc + " " + anchor.toPath(); }, '').concat(_this.isZipped ? ' z' : '');
         };
@@ -2188,7 +2232,7 @@ var Path = /** @class */ (function (_super) {
             return new Path(__assign({}, _this.toObject(), { children: children }));
         };
         _this.updateAnchor = function (idx, newPosition) {
-            var children = _this.children.updateIn([idx], function (child) { return child.setPosition(newPosition); });
+            var children = _this.children.update(idx, function (child) { return child.setPosition(newPosition); });
             return new Path(__assign({}, _this.toObject(), { children: children }));
         };
         _this.removeAnchor = function (idx) {
@@ -2226,11 +2270,15 @@ var Path = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CanvasEpics; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_observable__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mapTo__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mapTo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mapTo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_action__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_fromEvent__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_fromEvent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_fromEvent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_mapTo__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_mapTo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_mapTo__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__canvas_action__ = __webpack_require__(62);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2245,6 +2293,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var doneAction = { type: 'DONE', payload: undefined, meta: undefined };
 var CanvasEpics = /** @class */ (function () {
     function CanvasEpics(canvasActions) {
@@ -2253,12 +2303,13 @@ var CanvasEpics = /** @class */ (function () {
         this.createEpics = function () {
             return [
                 Object(__WEBPACK_IMPORTED_MODULE_1_redux_observable__["a" /* createEpicMiddleware */])(_this.updateTopLeftAfterMoved()),
+                Object(__WEBPACK_IMPORTED_MODULE_1_redux_observable__["a" /* createEpicMiddleware */])(_this.undoStateOnKeyPairPressed()),
             ];
         };
         this.updateTopLeftAfterMoved = function () {
             var lastMoved = { x: 0, y: 0 };
             return function (action$, store) { return action$ // Maybe can use `reduce` instead
-                .ofType(__WEBPACK_IMPORTED_MODULE_4__canvas_action__["a" /* CanvasActionType */].CANVAS_UPDATE_MOVED)
+                .ofType(__WEBPACK_IMPORTED_MODULE_6__canvas_action__["a" /* CanvasActionType */].CANVAS_UPDATE_MOVED)
                 .map(function (action) {
                 var topLeft = store.getState().canvas.getIn(['board', 'topLeft']);
                 var newPosition = {
@@ -2270,10 +2321,26 @@ var CanvasEpics = /** @class */ (function () {
             })
                 .mapTo(doneAction); };
         };
+        this.undoStateOnKeyPairPressed = function () {
+            return function (action$, store) { return __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"].fromEvent(document, 'keydown')
+                .throttle(function () { return __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"].fromEvent(document, 'keyup'); })
+                .filter(function (e) {
+                var key = e.which || e.keyCode;
+                return key === 17 // Windows Ctrl key
+                    || key === 91 || key === 93; // Cmd key
+            })
+                .switchMap(function () { return __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"].fromEvent(document, 'keydown')
+                .filter(function (e) {
+                var key = e.which || e.keyCode;
+                return key === 90; // Z key
+            })
+                .map(function () { return _this.canvasActions.popHistory(); }); })
+                .mapTo(doneAction); };
+        };
     }
     CanvasEpics = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__canvas_action__["b" /* CanvasActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__canvas_action__["b" /* CanvasActions */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_6__canvas_action__["b" /* CanvasActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__canvas_action__["b" /* CanvasActions */]) === "function" && _a || Object])
     ], CanvasEpics);
     return CanvasEpics;
     var _a;
@@ -2287,13 +2354,14 @@ var CanvasEpics = /** @class */ (function () {
 /* 207 */,
 /* 208 */,
 /* 209 */,
-/* 210 */
+/* 210 */,
+/* 211 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GroupComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawable_drawable_base_component__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawable_drawable_base_component__ = __webpack_require__(164);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -2322,8 +2390,8 @@ var GroupComponent = /** @class */ (function (_super) {
     GroupComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-group',
-            template: __webpack_require__(324),
-            styles: [__webpack_require__(325)],
+            template: __webpack_require__(327),
+            styles: [__webpack_require__(328)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].Emulated,
             changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectionStrategy"].OnPush,
         })
@@ -2334,7 +2402,7 @@ var GroupComponent = /** @class */ (function (_super) {
 //# sourceMappingURL=group.component.js.map
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2344,7 +2412,7 @@ var GroupComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__drawable_drawable_base_component__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__drawable_drawable_base_component__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__path_model__ = __webpack_require__(203);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -2431,8 +2499,8 @@ var PathComponent = /** @class */ (function (_super) {
     PathComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-path',
-            template: __webpack_require__(326),
-            styles: [__webpack_require__(327)],
+            template: __webpack_require__(329),
+            styles: [__webpack_require__(330)],
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].None,
         }),
@@ -2445,7 +2513,7 @@ var PathComponent = /** @class */ (function (_super) {
 //# sourceMappingURL=path.component.js.map
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2478,7 +2546,7 @@ var DrawableDirective = /** @class */ (function () {
 //# sourceMappingURL=drawable.directive.js.map
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2488,7 +2556,7 @@ var DrawableDirective = /** @class */ (function () {
 /* unused harmony export rgbToHex */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return createClamp; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Color; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_parse_color__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_parse_color__ = __webpack_require__(336);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_parse_color___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_parse_color__);
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -2611,13 +2679,13 @@ var Color = /** @class */ (function () {
 //# sourceMappingURL=rim.color.model.js.map
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ColorPickerEpics; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__slider_slider_epics__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__slider_slider_epics__ = __webpack_require__(216);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2647,15 +2715,15 @@ var ColorPickerEpics = /** @class */ (function () {
 //# sourceMappingURL=color.epics.js.map
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SliderEpics; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_observable__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__canvas_path_path_action__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__slider_action__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__canvas_path_path_action__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__slider_action__ = __webpack_require__(65);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2704,16 +2772,16 @@ var SliderEpics = /** @class */ (function () {
 //# sourceMappingURL=slider.epics.js.map
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ToolboxEpics; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvastool_canvastool_epics__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__directtool_directtool_epics__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pentool_epics_pentool_epics__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selectiontool_selectiontool_epics__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvastool_canvastool_epics__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__directtool_directtool_epics__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pentool_epics_pentool_epics__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selectiontool_selectiontool_epics__ = __webpack_require__(226);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2749,7 +2817,7 @@ var ToolboxEpics = /** @class */ (function () {
 //# sourceMappingURL=toolbox.epics.js.map
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2758,17 +2826,17 @@ var ToolboxEpics = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_observable__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mapTo__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mapTo__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mapTo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mapTo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_takeUntil__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_takeUntil__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_takeUntil___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_takeUntil__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__canvas_canvas_action__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__canvas_canvas_action__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__toolbox_action__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__canvastool_action__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__canvastool_model__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__canvastool_action__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__canvastool_model__ = __webpack_require__(363);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2841,8 +2909,8 @@ var CanvastoolEpics = /** @class */ (function () {
 //# sourceMappingURL=canvastool.epics.js.map
 
 /***/ }),
-/* 218 */,
-/* 219 */
+/* 219 */,
+/* 220 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2851,7 +2919,7 @@ var CanvastoolEpics = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_observable__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__toolbox_action__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directtool_model__ = __webpack_require__(361);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directtool_model__ = __webpack_require__(364);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2893,7 +2961,7 @@ var DirectSelectiontoolEpics = /** @class */ (function () {
 //# sourceMappingURL=directtool.epics.js.map
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2904,14 +2972,14 @@ var DirectSelectiontoolEpics = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_mapTo__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_mapTo__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_mapTo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_mapTo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_path_path_action__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_path_path_action__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__toolbox_action__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pentool_action__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pentool_model__ = __webpack_require__(362);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pentool_draw_epics__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pentool_action__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pentool_model__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pentool_draw_epics__ = __webpack_require__(222);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2972,39 +3040,39 @@ var PentoolEpics = /** @class */ (function () {
 //# sourceMappingURL=pentool.epics.js.map
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PentoolDrawEpics; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_observable__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__ = __webpack_require__(366);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_do__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_last__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_last__ = __webpack_require__(369);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_last___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_last__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_mapTo__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_mapTo__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_mapTo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_mapTo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_mergeMap__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_mergeMap__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_mergeMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_switchMap__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_switchMap__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_rxjs_add_operator_switchMap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_take__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_take__ = __webpack_require__(371);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_take___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_rxjs_add_operator_take__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_takeUntil__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_takeUntil__ = __webpack_require__(219);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_takeUntil___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rxjs_add_operator_takeUntil__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_throttle__ = __webpack_require__(371);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_throttle__ = __webpack_require__(374);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_throttle___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_rxjs_add_operator_throttle__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__ = __webpack_require__(374);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__ = __webpack_require__(377);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__canvas_anchor_anchor_action__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__canvas_anchor_anchor_action__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__canvas_drawable_drawable_model__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__canvas_path_path_action__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__color_rim_rim_model__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pentool_action__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__canvas_path_path_action__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__color_rim_rim_model__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pentool_action__ = __webpack_require__(66);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3075,7 +3143,7 @@ var PentoolDrawEpics = /** @class */ (function () {
                         var boardState = store.getState().canvas.board.toJS();
                         position = calcPositionOnCanvas(action.payload, boardState);
                     }
-                    return _this.anchorActions.updatePosition(targetIn, idx, position);
+                    return _this.anchorActions.setPosition(targetIn, idx, position);
                 };
             };
             var lastAnchorType;
@@ -3090,14 +3158,14 @@ var PentoolDrawEpics = /** @class */ (function () {
                 .map(function (action) { return _this.pathActions.changeColor(action.payload.targetIn, __WEBPACK_IMPORTED_MODULE_16__color_rim_rim_model__["b" /* ColorAttribute */].Outline, store.getState().color.rim.outline.color.toRGBString()); })
                 .switchMap(function () {
                 return Object(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__["raceStatic"])(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS).take(1)
-                    .map(addAnchorWithStore(store, 'absPoint', true))
+                    .map(addAnchorWithStore(store, 'cursorPosition', true))
                     .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].LineTo; }), action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS).take(1) // Take only the first and place an anchor
-                    .map(addAnchorWithStore(store, 'absPoint', true, __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].CubicBezierCurve))
+                    .map(addAnchorWithStore(store, 'cursorPosition', true, __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].CubicBezierCurve))
                     .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].CubicBezierCurve; })
                     .switchMap(function () { return action$ // Update anchor position each move
                     .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
-                    .map(updateAnchorPosWithStore(store, 'absPoint', true))
-                    .map(function (action) { return _this.anchorActions.updateBezierHandle(action.payload.targetIn, action.payload.idx, action.payload.position, 'both'); }); })
+                    .map(updateAnchorPosWithStore(store, 'cursorPosition', true))
+                    .map(function (action) { return _this.anchorActions.setBezierHandle(action.payload.targetIn, action.payload.idx, action.payload.position, 'both'); }); })
                     .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS)))
                     .last()
                     .switchMap(function () { return action$ // For next movements
@@ -3105,9 +3173,9 @@ var PentoolDrawEpics = /** @class */ (function () {
                     .throttle(function () { return action$ // Do this after the `switchMap()` below and skip that while this executing (dragging)
                     .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS)
                     .mergeMap(function (downAction) { return Object(__WEBPACK_IMPORTED_MODULE_11_rxjs_operator_race__["raceStatic"])(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS).take(1)
-                    .map(addAnchorWithStore(store, 'absPoint', true))
+                    .map(addAnchorWithStore(store, 'cursorPosition', true))
                     .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].LineTo; }), action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS).take(1)
-                    .map(addAnchorWithStore(store, 'absPoint', true, __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].SmoothCurveTo))
+                    .map(addAnchorWithStore(store, 'cursorPosition', true, __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].SmoothCurveTo))
                     .map(function (action) {
                     if (lastAnchorType === __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].LineTo) {
                         var targetIn = store.getState().toolbox.selected.others.get('activePathIn').toJS();
@@ -3118,8 +3186,8 @@ var PentoolDrawEpics = /** @class */ (function () {
                 })
                     .switchMap(function () { return action$
                     .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
-                    .map(updateAnchorPosWithStore(store, 'absPoint', true))
-                    .map(function (action) { return _this.anchorActions.updateBezierHandle(action.payload.targetIn, action.payload.idx, action.payload.position); })
+                    .map(updateAnchorPosWithStore(store, 'cursorPosition', true))
+                    .map(function (action) { return _this.anchorActions.setBezierHandle(action.payload.targetIn, action.payload.idx, action.payload.position); })
                     .map(function (action) {
                     var boardState = store.getState().canvas.board.toJS();
                     var downOnCanvas = calcPositionOnCanvas(downAction.payload, boardState);
@@ -3127,7 +3195,7 @@ var PentoolDrawEpics = /** @class */ (function () {
                         x: (downOnCanvas.x * 2) - action.payload.position.x,
                         y: (downOnCanvas.y * 2) - action.payload.position.y,
                     };
-                    return _this.anchorActions.updateBezierHandle(action.payload.targetIn, action.payload.idx - 1, position, 'end');
+                    return _this.anchorActions.setBezierHandle(action.payload.targetIn, action.payload.idx - 1, position, 'end');
                 }); })
                     .do(function () { return lastAnchorType = __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].SmoothCurveTo; })
                     .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_UP_ON_CANVAS))).last(); }); })
@@ -3135,13 +3203,13 @@ var PentoolDrawEpics = /** @class */ (function () {
                     var anchorIdx;
                     return action$
                         .ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_MOVE_ON_CANVAS)
-                        .map(updateAnchorPosWithStore(store, 'absPoint', true))
+                        .map(updateAnchorPosWithStore(store, 'cursorPosition', true))
                         .do(function (action) { return anchorIdx = action.payload.idx; })
                         .filter(function () {
                         return lastAnchorType === __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].CubicBezierCurve
                             || lastAnchorType === __WEBPACK_IMPORTED_MODULE_13__canvas_anchor_anchor_model__["a" /* AnchorType */].SmoothCurveTo;
                     })
-                        .map(function (action) { return _this.anchorActions.updateBezierHandle(action.payload.targetIn, anchorIdx, action.payload.position, 'end'); })
+                        .map(function (action) { return _this.anchorActions.setBezierHandle(action.payload.targetIn, anchorIdx, action.payload.position, 'end'); })
                         .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_17__pentool_action__["a" /* PentoolActionType */].PENTOOL_MOUSE_DOWN_ON_CANVAS));
                 }); })
                     .takeUntil(action$.ofType(__WEBPACK_IMPORTED_MODULE_15__canvas_path_path_action__["a" /* PathActionType */].PATH_ZIP_PATH));
@@ -3160,10 +3228,10 @@ var PentoolDrawEpics = /** @class */ (function () {
 //# sourceMappingURL=pentool.draw.epics.js.map
 
 /***/ }),
-/* 222 */,
 /* 223 */,
 /* 224 */,
-/* 225 */
+/* 225 */,
+/* 226 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3172,14 +3240,21 @@ var PentoolDrawEpics = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_immutable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_redux_observable__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvas_drawable_drawable_action__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_drawable_drawable_model__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__color_rim_rim_model__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__color_slider_slider_action__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__toolbox_action__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__selectiontool_action__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__selectiontool_model__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_fromEvent__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_switchMap__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__canvas_canvas_action__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__canvas_drawable_drawable_action__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__canvas_drawable_drawable_model__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__color_rim_rim_model__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__color_slider_slider_action__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__toolbox_action__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__toolbox_model__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__selectiontool_action__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__selectiontool_model__ = __webpack_require__(227);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3200,51 +3275,63 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
+
 var doneAction = { type: 'DONE', payload: undefined, meta: undefined };
 var findMostCommonAncestor = function (routePaths) {
     return routePaths.reduce(function (common, path) {
         return common.reduce(function (acc, val, idx) { return val === path.get(idx) ? acc.push(val) : acc; }, Object(__WEBPACK_IMPORTED_MODULE_1_immutable__["List"])([]));
     }, routePaths.get(0));
 };
+var calcDrawableMove = function (current, start, scale) {
+    return {
+        x: (current.x - start.x) / scale,
+        y: (current.y - start.y) / scale,
+    };
+};
 var SelectiontoolEpics = /** @class */ (function () {
-    function SelectiontoolEpics(toolboxActions, drawableActions, sliderActions) {
+    function SelectiontoolEpics(toolboxActions, drawableActions, sliderActions, canvasActions) {
         var _this = this;
         this.toolboxActions = toolboxActions;
         this.drawableActions = drawableActions;
         this.sliderActions = sliderActions;
+        this.canvasActions = canvasActions;
         this.createEpics = function () {
             return [
                 Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.setSelectiontoolTraitOnSelected()),
                 Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.selectDrawableOnClick()),
                 Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.deselectOnClickAway()),
-                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.changeColorPickerOnSelect(__WEBPACK_IMPORTED_MODULE_5__color_rim_rim_model__["b" /* ColorAttribute */].Fill)),
-                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.changeColorPickerOnSelect(__WEBPACK_IMPORTED_MODULE_5__color_rim_rim_model__["b" /* ColorAttribute */].Outline)),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.changeColorPickerOnSelect(__WEBPACK_IMPORTED_MODULE_9__color_rim_rim_model__["b" /* ColorAttribute */].Fill)),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.changeColorPickerOnSelect(__WEBPACK_IMPORTED_MODULE_9__color_rim_rim_model__["b" /* ColorAttribute */].Outline)),
                 Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.deleteObjectWhenPressed()),
+                Object(__WEBPACK_IMPORTED_MODULE_2_redux_observable__["a" /* createEpicMiddleware */])(_this.moveDrawableOnDrag()),
             ];
         };
         this.setSelectiontoolTraitOnSelected = function () {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_7__toolbox_action__["a" /* ToolboxActionType */].TOOLBOX_SELECT_TOOL)
-                .filter(function (action) { return action.payload.toolName === __WEBPACK_IMPORTED_MODULE_8__toolbox_model__["a" /* ToolName */].Selectiontool; })
-                .map(function (action) { return _this.toolboxActions.setToolTraitAction(Object(__WEBPACK_IMPORTED_MODULE_10__selectiontool_model__["a" /* createSelectiontool */])()); }); };
+                .ofType(__WEBPACK_IMPORTED_MODULE_11__toolbox_action__["a" /* ToolboxActionType */].TOOLBOX_SELECT_TOOL)
+                .filter(function (action) { return action.payload.toolName === __WEBPACK_IMPORTED_MODULE_12__toolbox_model__["a" /* ToolName */].Selectiontool; })
+                .map(function (action) { return _this.toolboxActions.setToolTraitAction(Object(__WEBPACK_IMPORTED_MODULE_14__selectiontool_model__["a" /* createSelectiontool */])()); }); };
         };
         this.selectDrawableOnClick = function () {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_9__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
-                .map(function (action) { return _this.drawableActions.selectAction(action.payload); })
+                .ofType(__WEBPACK_IMPORTED_MODULE_13__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
+                .map(function (action) { return _this.drawableActions.selectAction(action.payload.targetIn); })
                 .mapTo(doneAction); }; // Preventing double dispatch
         };
         this.deselectOnClickAway = function () {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_9__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS)
+                .ofType(__WEBPACK_IMPORTED_MODULE_13__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_CANVAS)
                 .map(function (action) { return _this.drawableActions.deselectAllAction(); })
                 .mapTo(doneAction); }; // Preventing double dispatch
         };
         this.changeColorPickerOnSelect = function (attribute) {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_9__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
+                .ofType(__WEBPACK_IMPORTED_MODULE_13__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
                 .map(function (action) {
-                var path = store.getState().canvas.getIn(__WEBPACK_IMPORTED_MODULE_4__canvas_drawable_drawable_model__["a" /* Drawable */].toRoutePath(action.payload));
+                var path = store.getState().canvas.getIn(__WEBPACK_IMPORTED_MODULE_8__canvas_drawable_drawable_model__["a" /* Drawable */].toRoutePath(action.payload.targetIn));
                 if (typeof path !== 'undefined') {
                     return _this.sliderActions.changeColor(attribute, path[attribute]);
                 }
@@ -3253,44 +3340,77 @@ var SelectiontoolEpics = /** @class */ (function () {
         };
         this.deleteObjectWhenPressed = function () {
             return function (action$, store) { return action$
-                .ofType(__WEBPACK_IMPORTED_MODULE_9__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_KEY_DOWN_ON_WINDOW)
+                .ofType(__WEBPACK_IMPORTED_MODULE_13__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_KEY_DOWN_ON_WINDOW) // Later should just remove this action
+                .throttle(function () { return __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__["Observable"].fromEvent(document, 'keyup'); })
                 .filter(function (action) {
                 var e = action.payload;
                 var key = e.which || e.keyCode;
                 return key === 8; // Delete key
             })
+                .do(function () { return _this.canvasActions.pushHistory(); })
                 .do(function () { return store.getState().canvas.selected.forEach(function (targetIn) {
                 return _this.drawableActions.deleteDrawableAction(targetIn.toArray());
             }); })
                 .do(function () {
                 var parentIn = findMostCommonAncestor(store.getState().canvas.selected);
-                _this.drawableActions.refreshAllRoutePathIn(parentIn.slice(0, -1).toArray());
+                if (parentIn) {
+                    _this.drawableActions.refreshAllRoutePathIn(parentIn.slice(0, -1).toArray());
+                }
             })
                 .map(function () { return _this.drawableActions.deselectAllAction(); })
+                .mapTo(doneAction); };
+        };
+        this.moveDrawableOnDrag = function () {
+            var MOVE_STEP_PUSH_HISTORY = 2; // Tolerance for mousedown, usually leads to move cursor a bit
+            var moveSteps = 0;
+            return function (action$, store) { return action$
+                .ofType(__WEBPACK_IMPORTED_MODULE_13__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_DOWN_ON_DRAWABLE)
+                .do(function () { return moveSteps = 0; })
+                .switchMap(function (downAction) {
+                var scale = store.getState().canvas.board.scale;
+                var lastCursorPos = downAction.payload.cursorPosition;
+                return action$
+                    .ofType(__WEBPACK_IMPORTED_MODULE_13__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_MOVE_ON_CANVAS)
+                    .do(function (moveAction) {
+                    if (moveSteps++ === MOVE_STEP_PUSH_HISTORY) {
+                        _this.canvasActions.pushHistory();
+                    } // Undoable
+                    var drawableMoved = calcDrawableMove(moveAction.payload, lastCursorPos, scale);
+                    store.getState().canvas.selected.forEach(function (targetIn) {
+                        _this.drawableActions.updatePosition(targetIn.toArray(), function (pos) { return ({
+                            x: pos.x + drawableMoved.x,
+                            y: pos.y + drawableMoved.y,
+                        }); });
+                    });
+                    lastCursorPos = moveAction.payload;
+                })
+                    .takeUntil(action$
+                    .ofType(__WEBPACK_IMPORTED_MODULE_13__selectiontool_action__["a" /* SelectiontoolActionType */].SELECTIONTOOL_MOUSE_UP_ON_WINDOW));
+            })
                 .mapTo(doneAction); };
         };
     }
     SelectiontoolEpics = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_7__toolbox_action__["b" /* ToolboxActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__toolbox_action__["b" /* ToolboxActions */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__canvas_drawable_drawable_action__["b" /* DrawableActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__canvas_drawable_drawable_action__["b" /* DrawableActions */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__color_slider_slider_action__["b" /* SliderActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__color_slider_slider_action__["b" /* SliderActions */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_11__toolbox_action__["b" /* ToolboxActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_11__toolbox_action__["b" /* ToolboxActions */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_7__canvas_drawable_drawable_action__["b" /* DrawableActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__canvas_drawable_drawable_action__["b" /* DrawableActions */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_10__color_slider_slider_action__["b" /* SliderActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_10__color_slider_slider_action__["b" /* SliderActions */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_6__canvas_canvas_action__["b" /* CanvasActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__canvas_canvas_action__["b" /* CanvasActions */]) === "function" && _d || Object])
     ], SelectiontoolEpics);
     return SelectiontoolEpics;
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=selectiontool.epics.js.map
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createSelectiontool; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__selectiontool_action__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__selectiontool_action__ = __webpack_require__(92);
 
 
 
@@ -3301,10 +3421,16 @@ var createSelectiontool = function () {
         var triggeringDrawable = _a.triggeringDrawable;
         e.stopPropagation();
         var pathFromRoot = triggeringDrawable.routeParentPath.toArray().concat([triggeringDrawable.idx]);
-        return actions.mouseDownOnDrawableAction(pathFromRoot);
+        return actions.mouseDownOnDrawableAction(pathFromRoot, { x: e.clientX, y: e.clientY });
     };
     var mouseDownOnCanvas = function (e) {
         return actions.mouseDownOnCanvas();
+    };
+    var mouseMoveOnCanvas = function (e) {
+        return actions.mouseMoveOnCanvas({ x: e.clientX, y: e.clientY });
+    };
+    var mouseUpOnWindow = function (e) {
+        return actions.mouseUpOnWindow();
     };
     var keyDownOnWindow = function (e) {
         return actions.keyDownOnWindow(e);
@@ -3315,6 +3441,8 @@ var createSelectiontool = function () {
             { name: 'mousedown', handler: mouseDownOnDrawable, target: 'path' },
             { name: 'mousedown', handler: mouseDownOnDrawable, target: 'group' },
             { name: 'mousedown', handler: mouseDownOnCanvas, target: 'canvas' },
+            { name: 'mousemove', handler: mouseMoveOnCanvas, target: 'canvas' },
+            { name: 'mouseup', handler: mouseUpOnWindow, target: 'window' },
             { name: 'keydown', handler: keyDownOnWindow, target: 'window' },
         ]),
     });
@@ -3322,18 +3450,18 @@ var createSelectiontool = function () {
 //# sourceMappingURL=selectiontool.model.js.map
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return toolboxReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__canvastool_canvastool_action__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvastool_canvastool_reducer__ = __webpack_require__(377);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pentool_pentool_action__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pentool_pentool_reducer__ = __webpack_require__(378);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selectiontool_selectiontool_action__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__selectiontool_selectiontool_model__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__selectiontool_selectiontool_reducer__ = __webpack_require__(379);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__canvastool_canvastool_action__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvastool_canvastool_reducer__ = __webpack_require__(380);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pentool_pentool_action__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pentool_pentool_reducer__ = __webpack_require__(381);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selectiontool_selectiontool_action__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__selectiontool_selectiontool_model__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__selectiontool_selectiontool_reducer__ = __webpack_require__(382);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__toolbox_action__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__toolbox_model__ = __webpack_require__(23);
 
@@ -3366,7 +3494,7 @@ var toolboxReducer = function (state, action) {
 //# sourceMappingURL=toolbox.reducer.js.map
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3374,7 +3502,7 @@ var toolboxReducer = function (state, action) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tool_tool_base_component__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tool_tool_base_component__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_action__ = __webpack_require__(25);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -3420,8 +3548,8 @@ var CanvastoolComponent = /** @class */ (function (_super) {
     CanvastoolComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-canvastool',
-            template: __webpack_require__(381),
-            styles: [__webpack_require__(382)],
+            template: __webpack_require__(384),
+            styles: [__webpack_require__(385)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].Emulated,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].Default,
         }),
@@ -3434,7 +3562,7 @@ var CanvastoolComponent = /** @class */ (function (_super) {
 //# sourceMappingURL=canvastool.component.js.map
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3442,7 +3570,7 @@ var CanvastoolComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tool_tool_base_component__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tool_tool_base_component__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_action__ = __webpack_require__(25);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -3487,8 +3615,8 @@ var DirectSelectiontoolComponent = /** @class */ (function (_super) {
     DirectSelectiontoolComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-directtool',
-            template: __webpack_require__(385),
-            styles: [__webpack_require__(386)],
+            template: __webpack_require__(388),
+            styles: [__webpack_require__(389)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].Emulated,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].Default,
         }),
@@ -3501,7 +3629,7 @@ var DirectSelectiontoolComponent = /** @class */ (function (_super) {
 //# sourceMappingURL=directtool.component.js.map
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3509,7 +3637,7 @@ var DirectSelectiontoolComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tool_tool_base_component__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tool_tool_base_component__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_action__ = __webpack_require__(25);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -3554,8 +3682,8 @@ var PentoolComponent = /** @class */ (function (_super) {
     PentoolComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-pentool',
-            template: __webpack_require__(389),
-            styles: [__webpack_require__(390)],
+            template: __webpack_require__(392),
+            styles: [__webpack_require__(393)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].Emulated,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].Default,
         }),
@@ -3568,7 +3696,7 @@ var PentoolComponent = /** @class */ (function (_super) {
 //# sourceMappingURL=pentool.component.js.map
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3576,7 +3704,7 @@ var PentoolComponent = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tool_tool_base_component__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tool_tool_base_component__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_action__ = __webpack_require__(25);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -3621,8 +3749,8 @@ var SelectiontoolComponent = /** @class */ (function (_super) {
     SelectiontoolComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-selectiontool',
-            template: __webpack_require__(393),
-            styles: [__webpack_require__(394)],
+            template: __webpack_require__(396),
+            styles: [__webpack_require__(397)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].Emulated,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].Default,
         }),
@@ -3635,7 +3763,7 @@ var SelectiontoolComponent = /** @class */ (function (_super) {
 //# sourceMappingURL=selectiontool.component.js.map
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3668,22 +3796,22 @@ var ToolDirective = /** @class */ (function () {
 //# sourceMappingURL=tool.directive.js.map
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(234);
+module.exports = __webpack_require__(235);
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(246);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(248);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_environments__ = __webpack_require__(421);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(249);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_environments__ = __webpack_require__(424);
 
 
 
@@ -3695,7 +3823,6 @@ Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* pl
 //# sourceMappingURL=main.js.map
 
 /***/ }),
-/* 235 */,
 /* 236 */,
 /* 237 */,
 /* 238 */,
@@ -3708,7 +3835,8 @@ Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* pl
 /* 245 */,
 /* 246 */,
 /* 247 */,
-/* 248 */
+/* 248 */,
+/* 249 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3716,20 +3844,20 @@ Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(278);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_polyfills__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_reflect_metadata__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(282);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_platform_browser__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_polyfills__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_reflect_metadata__ = __webpack_require__(283);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_reflect_metadata___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_reflect_metadata__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_zone_js_dist_zone_mix__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_zone_js_dist_zone_mix__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_zone_js_dist_zone_mix___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_zone_js_dist_zone_mix__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__canvas_canvas_module__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__color_color_module__ = __webpack_require__(330);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__store_store_module__ = __webpack_require__(356);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__toolbox_toolbox_module__ = __webpack_require__(380);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__app_routing_module__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__canvas_canvas_module__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__color_color_module__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__store_store_module__ = __webpack_require__(359);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__toolbox_toolbox_module__ = __webpack_require__(383);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__app_routing_module__ = __webpack_require__(406);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_electron_service__ = __webpack_require__(193);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3781,7 +3909,6 @@ var AppModule = /** @class */ (function () {
 //# sourceMappingURL=app.module.js.map
 
 /***/ }),
-/* 249 */,
 /* 250 */,
 /* 251 */,
 /* 252 */,
@@ -3815,7 +3942,8 @@ var AppModule = /** @class */ (function () {
 /* 280 */,
 /* 281 */,
 /* 282 */,
-/* 283 */
+/* 283 */,
+/* 284 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3854,8 +3982,8 @@ var AppComponent = /** @class */ (function () {
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-root',
-            template: __webpack_require__(284),
-            styles: [__webpack_require__(285)],
+            template: __webpack_require__(285),
+            styles: [__webpack_require__(286)],
         }),
         __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__providers_electron_service__["a" /* ElectronService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__providers_electron_service__["a" /* ElectronService */]) === "function" && _b || Object])
     ], AppComponent);
@@ -3866,13 +3994,13 @@ var AppComponent = /** @class */ (function () {
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
-/* 284 */
+/* 285 */
 /***/ (function(module, exports) {
 
 module.exports = "<router-outlet></router-outlet>\n<div #root class=\"app\">\n  <app-draw-canvas></app-draw-canvas>\n  <app-toolbox></app-toolbox>\n  <div class=\"app__rightSide\">\n    <app-color-picker></app-color-picker>\n  </div>\n</div>";
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -3889,24 +4017,24 @@ exports.push([module.i, ".app {\n  background: linear-gradient(10deg, #EBEBF0, #
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CanvasModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_anchor_module__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__boundingbox_boundingbox_component__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_action__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_component__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_anchor_module__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__boundingbox_boundingbox_component__ = __webpack_require__(297);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__canvas_action__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_component__ = __webpack_require__(309);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__canvas_epics__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__drawable_drawable_action__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__drawable_drawable_component__ = __webpack_require__(323);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__drawable_drawable_directive__ = __webpack_require__(212);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__group_group_component__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__path_path_action__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__path_path_component__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__drawable_drawable_action__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__drawable_drawable_component__ = __webpack_require__(326);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__drawable_drawable_directive__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__group_group_component__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__path_path_action__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__path_path_component__ = __webpack_require__(212);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3964,14 +4092,14 @@ var CanvasModule = /** @class */ (function () {
 //# sourceMappingURL=canvas.module.js.map
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnchorModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_action__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__anchor_action__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__anchor_container_component__ = __webpack_require__(194);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__anchor_directive__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__basic_basic_component__ = __webpack_require__(196);
@@ -4025,13 +4153,13 @@ var AnchorModule = /** @class */ (function () {
 //# sourceMappingURL=anchor.module.js.map
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports) {
 
 module.exports = "<div #anchor class=\"anchor\" [ngStyle]=\"style\"></div>";
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -4048,13 +4176,13 @@ exports.push([module.i, ".anchor {\n  position: absolute;\n  top: -5px;\n  left:
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports) {
 
 module.exports = "<div #anchor class=\"anchor\" [ngStyle]=\"style\"></div>\n<div #handleAnchor class=\"handle-anchor\" [ngStyle]=\"handleStyle\" *ngFor=\"let handleStyle of handleStyles\"></div>\n<svg class=\"handleLines\">\n\t<svg:path *ngFor=\"let handle of handles\" [attr.d]=\"handle.path\" class=\"handleLines__line\"></svg:path>\n</svg>";
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -4071,13 +4199,13 @@ exports.push([module.i, ".anchor {\n  position: absolute;\n  top: -3px;\n  left:
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports) {
 
 module.exports = "<div #anchor class=\"anchor\" [ngStyle]=\"style\"></div>\n<div #handleAnchor class=\"handle-anchor\" [ngStyle]=\"handleStyle\" *ngFor=\"let handleStyle of handleStyles\"></div>\n<svg class=\"handle-lines\">\n\t<svg:path *ngFor=\"let handle of handles\" [attr.d]=\"handle.path\" class=\"handle-lines__line\"></svg:path>\n</svg>";
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -4094,13 +4222,13 @@ exports.push([module.i, ".anchor {\n  position: absolute;\n  top: -3px;\n  left:
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports) {
 
 module.exports = "<ng-template appAnchorHost></ng-template>";
 
 /***/ }),
-/* 295 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -4117,7 +4245,7 @@ exports.push([module.i, "", ""]);
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 296 */
+/* 297 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4125,7 +4253,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_mergeMap__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_mergeMap__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_mergeMap__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__);
@@ -4242,8 +4370,8 @@ var BoundingBoxComponent = /** @class */ (function () {
         }),
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-bounding-box',
-            template: __webpack_require__(306),
-            styles: [__webpack_require__(307)],
+            template: __webpack_require__(307),
+            styles: [__webpack_require__(308)],
         }),
         __metadata("design:paramtypes", [])
     ], BoundingBoxComponent);
@@ -4254,13 +4382,13 @@ var BoundingBoxComponent = /** @class */ (function () {
 //# sourceMappingURL=boundingbox.component.js.map
 
 /***/ }),
-/* 297 */
+/* 298 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return anchorReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__anchor_action__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__anchor_core__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__anchor_action__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__anchor_core__ = __webpack_require__(299);
 
 
 var anchorReducer = function (state, action) {
@@ -4280,7 +4408,7 @@ var anchorReducer = function (state, action) {
 //# sourceMappingURL=anchor.reducer.js.map
 
 /***/ }),
-/* 298 */
+/* 299 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4323,7 +4451,7 @@ var updateBezierHandle = function (state, targetIn, idx, newPosition, which) {
 //# sourceMappingURL=anchor.core.js.map
 
 /***/ }),
-/* 299 */
+/* 300 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4366,6 +4494,9 @@ var QuadraticBezierAnchor = /** @class */ (function (_super) {
             return new QuadraticBezierAnchor(__assign({}, (_this.toObject()), { routeParentPath: path }));
         };
         _this.setIndex = function (idx) { return new QuadraticBezierAnchor(__assign({}, _this.toObject(), { idx: idx })); };
+        _this.updatePosition = function (projection) {
+            return new QuadraticBezierAnchor(__assign({}, _this.updateHandle(projection(_this.handlePositions.get(0))).toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](projection(_this.absPosition)) }));
+        };
         _this.setPosition = function (absPosition) {
             return new QuadraticBezierAnchor(__assign({}, (_this.toObject()), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](absPosition) }));
         };
@@ -4412,6 +4543,12 @@ var CubicBezierAnchor = /** @class */ (function (_super) {
             return new CubicBezierAnchor(__assign({}, _this.toObject(), { routeParentPath: path }));
         };
         _this.setIndex = function (idx) { return new CubicBezierAnchor(__assign({}, _this.toObject(), { idx: idx })); };
+        _this.updatePosition = function (projection) {
+            return new CubicBezierAnchor(__assign({}, _this
+                .updateHandle(projection(_this.handlePositions.get(0)), 'start')
+                .updateHandle(projection(_this.handlePositions.get(1)), 'end')
+                .toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](projection(_this.absPosition)) }));
+        };
         _this.setPosition = function (absPosition) {
             return new CubicBezierAnchor(__assign({}, _this.toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](absPosition) }));
         };
@@ -4460,7 +4597,7 @@ var CubicBezierAnchor = /** @class */ (function (_super) {
 //# sourceMappingURL=bezier.model.js.map
 
 /***/ }),
-/* 300 */
+/* 301 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4505,6 +4642,9 @@ var SmoothAnchor = /** @class */ (function (_super) {
             return new SmoothAnchor(__assign({}, _this.toObject(), { routeParentPath: path }));
         };
         _this.setIndex = function (idx) { return new SmoothAnchor(__assign({}, _this.toObject(), { idx: idx })); };
+        _this.updatePosition = function (projection) {
+            return new SmoothAnchor(__assign({}, _this.updateHandle(projection(_this.handlePositions.get(0))).toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](projection(_this.absPosition)) }));
+        };
         _this.setPosition = function (absPosition) {
             return new SmoothAnchor(__assign({}, _this.toObject(), { absPosition: new __WEBPACK_IMPORTED_MODULE_1__canvas_model__["c" /* Position */](absPosition) }));
         };
@@ -4556,13 +4696,15 @@ var SmoothQuadraticAnchor = /** @class */ (function (_super) {
 //# sourceMappingURL=smooth.model.js.map
 
 /***/ }),
-/* 301 */
+/* 302 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateTopLeft; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return updateScale; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return updateMoved; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return updateTopLeft; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return updateScale; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateMoved; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return pushHistory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return popHistory; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__canvas_model__ = __webpack_require__(35);
 
 var MIN_CANVAS_SCALE = 0.2;
@@ -4576,16 +4718,26 @@ var updateScale = function (state, change) {
 var updateMoved = function (state, position) {
     return state.setIn(['board', 'moved'], new __WEBPACK_IMPORTED_MODULE_0__canvas_model__["c" /* Position */](position));
 };
+var pushHistory = function (state) {
+    return state.update('history', function (history) { return history.push(state.root); });
+};
+var popHistory = function (state) {
+    var lastRoot = state.history.peek();
+    return lastRoot ? state
+        .set('root', lastRoot)
+        .update('history', function (history) { return history.pop(); })
+        : state;
+};
 //# sourceMappingURL=canvas.core.js.map
 
 /***/ }),
-/* 302 */
+/* 303 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return drawableReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawable_action__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawable_core__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawable_action__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawable_core__ = __webpack_require__(304);
 
 
 var drawableReducer = function (state, action) {
@@ -4607,13 +4759,16 @@ var drawableReducer = function (state, action) {
         case __WEBPACK_IMPORTED_MODULE_0__drawable_action__["a" /* DrawableActionType */].DRAWABLE_REFRESH_ALL_ROUTE_PATH_IN:
             var refreshAction = action;
             return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["e" /* refreshAllRoutePathIn */](state, refreshAction.payload);
+        case __WEBPACK_IMPORTED_MODULE_0__drawable_action__["a" /* DrawableActionType */].DRAWABLE_UPDATE_POSITION:
+            var updatePositionAction = action;
+            return __WEBPACK_IMPORTED_MODULE_1__drawable_core__["g" /* updatePosition */](state, updatePositionAction.payload.targetIn, updatePositionAction.payload.projection);
     }
     return state;
 };
 //# sourceMappingURL=drawable.reducer.js.map
 
 /***/ }),
-/* 303 */
+/* 304 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4623,6 +4778,7 @@ var drawableReducer = function (state, action) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return deselectAllDrawable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return deleteDrawable; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return refreshAllRoutePathIn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return updatePosition; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawable_model__ = __webpack_require__(31);
@@ -4644,20 +4800,23 @@ var deleteDrawable = function (state, targetIn) {
     return state.removeIn(__WEBPACK_IMPORTED_MODULE_1__drawable_model__["a" /* Drawable */].toRoutePath(targetIn));
 };
 var refreshAllRoutePathIn = function (state, parentIn) {
-    return state.updateIn(__WEBPACK_IMPORTED_MODULE_1__drawable_model__["a" /* Drawable */].toRoutePath(parentIn), function (children) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_1__drawable_model__["a" /* Drawable */].toRoutePath(parentIn, true), function (children) {
         return children.map(function (drawable, idx) { return drawable.setRouteParentPath(Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["List"])(parentIn)).setIndex(idx); });
     });
+};
+var updatePosition = function (state, targetIn, projection) {
+    return state.updateIn(__WEBPACK_IMPORTED_MODULE_1__drawable_model__["a" /* Drawable */].toRoutePath(targetIn), function (drawable) { return drawable.updatePosition(projection); });
 };
 //# sourceMappingURL=drawable.core.js.map
 
 /***/ }),
-/* 304 */
+/* 305 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pathReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__path_action__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__path_core__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__path_action__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__path_core__ = __webpack_require__(306);
 
 
 var pathReducer = function (state, action) {
@@ -4686,7 +4845,7 @@ var pathReducer = function (state, action) {
 //# sourceMappingURL=path.reducer.js.map
 
 /***/ }),
-/* 305 */
+/* 306 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4742,13 +4901,13 @@ var changeColor = function (state, targetIn, attribute, color) {
 //# sourceMappingURL=path.core.js.map
 
 /***/ }),
-/* 306 */
+/* 307 */
 /***/ (function(module, exports) {
 
 module.exports = "<svg class=\"boundingBox\" [ngClass]=\"{ display: show ? 'unset' : 'none' }\">\n  <svg:rect\n    class=\"boundingBox__rect\"\n    [attr.width]=\"width$ | async\"\n    [attr.height]=\"height$ | async\"\n    [attr.y]=\"top$ | async\"\n    [attr.x]=\"left$ | async\"></svg:rect>\n</svg>";
 
 /***/ }),
-/* 307 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -4765,7 +4924,7 @@ exports.push([module.i, ".boundingBox {\n  position: absolute;\n  width: 100%;\n
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 308 */
+/* 309 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4773,13 +4932,13 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_combineLatest__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_combineLatest__ = __webpack_require__(310);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_combineLatest___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_combineLatest__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_filter__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_action__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__canvas_action__ = __webpack_require__(62);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4905,8 +5064,8 @@ var CanvasComponent = /** @class */ (function () {
     CanvasComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-draw-canvas',
-            template: __webpack_require__(312),
-            styles: [__webpack_require__(313)],
+            template: __webpack_require__(313),
+            styles: [__webpack_require__(314)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].Emulated,
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
@@ -4919,16 +5078,16 @@ var CanvasComponent = /** @class */ (function () {
 //# sourceMappingURL=canvas.component.js.map
 
 /***/ }),
-/* 309 */,
 /* 310 */,
 /* 311 */,
-/* 312 */
+/* 312 */,
+/* 313 */
 /***/ (function(module, exports) {
 
 module.exports = "<div #canvas class=\"draw-canvas\" [ngStyle]=\"canvasStyle$ | async\">\n\t<app-drawable [drawable]=\"drawable\" *ngFor=\"let drawable of (root$ | async); trackBy: trackById\"></app-drawable>\n\t<app-bounding-box></app-bounding-box>\n</div>\n";
 
 /***/ }),
-/* 313 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -4945,7 +5104,6 @@ exports.push([module.i, ".draw-canvas {\n  position: relative;\n  width: 800px;\
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 314 */,
 /* 315 */,
 /* 316 */,
 /* 317 */,
@@ -4954,16 +5112,19 @@ module.exports = module.exports.toString();
 /* 320 */,
 /* 321 */,
 /* 322 */,
-/* 323 */
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DrawableComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__anchor_anchor_container_component__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__group_group_component__ = __webpack_require__(210);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__path_path_component__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__drawable_directive__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__group_group_component__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__path_path_component__ = __webpack_require__(212);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__drawable_directive__ = __webpack_require__(213);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__drawable_model__ = __webpack_require__(31);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5024,8 +5185,8 @@ var DrawableComponent = /** @class */ (function () {
     DrawableComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-drawable',
-            template: __webpack_require__(328),
-            styles: [__webpack_require__(329)],
+            template: __webpack_require__(331),
+            styles: [__webpack_require__(332)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewEncapsulation"].None,
             changeDetection: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
@@ -5039,13 +5200,13 @@ var _a;
 //# sourceMappingURL=drawable.component.js.map
 
 /***/ }),
-/* 324 */
+/* 327 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"group\">\n  <app-drawable [drawable]=\"child\" *ngFor=\"let child of drawable.children\"></app-drawable>\n</div>";
 
 /***/ }),
-/* 325 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5062,13 +5223,13 @@ exports.push([module.i, ".group {\n  position: absolute;\n  top: 0;\n  left: 0;\
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 326 */
+/* 329 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"path\">\n  <svg class=\"path__container\">\n    <svg:path #path [attr.d]=\"drawable.toPath()\" class=\"path__line\" [ngStyle]=\"drawable.toColorStyle()\"></svg:path>\n  </svg>\n  <div class=\"path__anchorGroup\">\n    <app-anchor *ngFor=\"let anchor of drawable.children; trackBy: trackById\" [drawable]=\"anchor\"></app-anchor>\n  </div>\n</div>";
 
 /***/ }),
-/* 327 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5085,13 +5246,13 @@ exports.push([module.i, ".path {\n  position: absolute;\n  top: 0;\n  left: 0;\n
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 328 */
+/* 331 */
 /***/ (function(module, exports) {
 
 module.exports = "<ng-template appDrawableHost></ng-template>";
 
 /***/ }),
-/* 329 */
+/* 332 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5108,22 +5269,22 @@ exports.push([module.i, "", ""]);
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 330 */
+/* 333 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ColorModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__color_component__ = __webpack_require__(331);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__color_epics__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__opacity_opacity_component__ = __webpack_require__(344);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rim_rim_action__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rim_rim_component__ = __webpack_require__(347);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__slider_slider_action__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__slider_slider_component__ = __webpack_require__(350);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__slider_slider_epics__ = __webpack_require__(215);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__stroke_stroke_component__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__color_component__ = __webpack_require__(334);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__color_epics__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__opacity_opacity_component__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rim_rim_action__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rim_rim_component__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__slider_slider_action__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__slider_slider_component__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__slider_slider_epics__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__stroke_stroke_component__ = __webpack_require__(356);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5173,7 +5334,7 @@ var ColorModule = /** @class */ (function () {
 //# sourceMappingURL=color.module.js.map
 
 /***/ }),
-/* 331 */
+/* 334 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5183,7 +5344,7 @@ var ColorModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__color_reducer__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__color_reducer__ = __webpack_require__(89);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5214,8 +5375,8 @@ var ColorPickerComponent = /** @class */ (function () {
         }),
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-color-picker',
-            template: __webpack_require__(342),
-            styles: [__webpack_require__(343)],
+            template: __webpack_require__(345),
+            styles: [__webpack_require__(346)],
         }),
         __metadata("design:paramtypes", [])
     ], ColorPickerComponent);
@@ -5226,14 +5387,14 @@ var ColorPickerComponent = /** @class */ (function () {
 //# sourceMappingURL=color.component.js.map
 
 /***/ }),
-/* 332 */
+/* 335 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ColorPickerState; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rim_rim_model__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rim_rim_model__ = __webpack_require__(64);
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -5259,10 +5420,10 @@ var ColorPickerState = /** @class */ (function (_super) {
 //# sourceMappingURL=color.model.js.map
 
 /***/ }),
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5273,7 +5434,7 @@ var OpacityActionType;
 //# sourceMappingURL=opacity.action.js.map
 
 /***/ }),
-/* 337 */
+/* 340 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5284,12 +5445,12 @@ var opacityReducer = function (state, action) {
 //# sourceMappingURL=opacity.reducer.js.map
 
 /***/ }),
-/* 338 */
+/* 341 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return rimReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rim_action__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__rim_action__ = __webpack_require__(90);
 
 var rimReducer = function (state, action) {
     switch (action.type) {
@@ -5302,12 +5463,12 @@ var rimReducer = function (state, action) {
 //# sourceMappingURL=rim.reducer.js.map
 
 /***/ }),
-/* 339 */
+/* 342 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return sliderReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider_action__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__slider_action__ = __webpack_require__(65);
 
 var sliderReducer = function (state, action) {
     switch (action.type) {
@@ -5323,7 +5484,7 @@ var sliderReducer = function (state, action) {
 //# sourceMappingURL=slider.reducer.js.map
 
 /***/ }),
-/* 340 */
+/* 343 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5334,7 +5495,7 @@ var StrokeActionType;
 //# sourceMappingURL=stroke.action.js.map
 
 /***/ }),
-/* 341 */
+/* 344 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5345,13 +5506,13 @@ var strokeReducer = function (state, action) {
 //# sourceMappingURL=stroke.reducer.js.map
 
 /***/ }),
-/* 342 */
+/* 345 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"colorPicker\">\n  <app-rim-color [selected]=\"selected$ | async\"></app-rim-color>\n  <div class=\"picker__sliderGroup\">\n    <app-slider-color *ngFor=\"let channel of ['r', 'g', 'b']\" [channel]=\"channel\" [selected]=\"selected$ | async\"></app-slider-color>\n  </div>\n</div>\n<app-slider-opacity></app-slider-opacity>\n<app-stroke-width-slider></app-stroke-width-slider>";
 
 /***/ }),
-/* 343 */
+/* 346 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5368,7 +5529,7 @@ exports.push([module.i, ".colorPicker {\n  width: calc(100% - 10px);\n  height: 
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 344 */
+/* 347 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5392,8 +5553,8 @@ var OpacityComponent = /** @class */ (function () {
     OpacityComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-slider-opacity',
-            template: __webpack_require__(345),
-            styles: [__webpack_require__(346)],
+            template: __webpack_require__(348),
+            styles: [__webpack_require__(349)],
         }),
         __metadata("design:paramtypes", [])
     ], OpacityComponent);
@@ -5403,13 +5564,13 @@ var OpacityComponent = /** @class */ (function () {
 //# sourceMappingURL=opacity.component.js.map
 
 /***/ }),
-/* 345 */
+/* 348 */
 /***/ (function(module, exports) {
 
 module.exports = "";
 
 /***/ }),
-/* 346 */
+/* 349 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5426,7 +5587,7 @@ exports.push([module.i, "", ""]);
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 347 */
+/* 350 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5436,9 +5597,9 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__color_reducer__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__rim_rim_model__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rim_action__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__color_reducer__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__rim_rim_model__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rim_action__ = __webpack_require__(90);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5526,8 +5687,8 @@ var RimComponent = /** @class */ (function () {
         }),
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-rim-color',
-            template: __webpack_require__(348),
-            styles: [__webpack_require__(349)],
+            template: __webpack_require__(351),
+            styles: [__webpack_require__(352)],
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
         __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__rim_action__["b" /* RimActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__rim_action__["b" /* RimActions */]) === "function" && _c || Object])
@@ -5539,13 +5700,13 @@ var RimComponent = /** @class */ (function () {
 //# sourceMappingURL=rim.component.js.map
 
 /***/ }),
-/* 348 */
+/* 351 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"rim__wrapper\">\n\t<div\n\t\tclass=\"rim__outline\"\n\t\t[style.background]=\"outlineColor$ | async\"\n\t\t(mousedown)=\"selectAttribute($event, 'outline')\"\n\t\t[ngStyle]=\"getShadowStyle$('outline') | async\">\n\t\t<div\n\t\t\tclass=\"rim__separator\"\n\t\t\t[ngStyle]=\"separatorStyle$ | async\">\n\t\t\t<div class=\"rim__fill\"\n\t\t\t\t[style.background]=\"fillColor$ | async\"\n\t\t\t\t(mousedown)=\"selectAttribute($event, 'fill')\"\n\t\t\t\t[ngStyle]=\"getShadowStyle$('fill') | async\">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>";
 
 /***/ }),
-/* 349 */
+/* 352 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5562,7 +5723,7 @@ exports.push([module.i, ".rim__wrapper {\n  width: 200%;\n  height: 100%;\n  dis
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 350 */
+/* 353 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5572,14 +5733,14 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mergeMap__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mergeMap__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mergeMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_mergeMap__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__color_reducer__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rim_rim_color_model__ = __webpack_require__(213);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__rim_rim_model__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__slider_action__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__color_reducer__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rim_rim_color_model__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__rim_rim_model__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__slider_action__ = __webpack_require__(65);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5694,8 +5855,8 @@ var SliderComponent = /** @class */ (function () {
         }),
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-slider-color',
-            template: __webpack_require__(351),
-            styles: [__webpack_require__(352)],
+            template: __webpack_require__(354),
+            styles: [__webpack_require__(355)],
             changeDetection: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ChangeDetectionStrategy"].OnPush,
         }),
         __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_8__slider_action__["b" /* SliderActions */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__slider_action__["b" /* SliderActions */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1__angular_core__["Renderer2"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_core__["Renderer2"]) === "function" && _e || Object])
@@ -5707,13 +5868,13 @@ var SliderComponent = /** @class */ (function () {
 //# sourceMappingURL=slider.component.js.map
 
 /***/ }),
-/* 351 */
+/* 354 */
 /***/ (function(module, exports) {
 
 module.exports = "<div #bar class=\"colorSlider\" [ngStyle]=\"barStyle$ | async\">\n\t<div class=\"colorSlider__handle\"\n\t\t(mousedown)=\"startDrag($event)\"\n\t\t[ngStyle]=\"handleStyle$ | async\"></div>\n</div>";
 
 /***/ }),
-/* 352 */
+/* 355 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5730,7 +5891,7 @@ exports.push([module.i, ".colorSlider {\n  position: relative;\n  width: 128px;\
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 353 */
+/* 356 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5754,8 +5915,8 @@ var StrokeComponent = /** @class */ (function () {
     StrokeComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-stroke-width-slider',
-            template: __webpack_require__(354),
-            styles: [__webpack_require__(355)],
+            template: __webpack_require__(357),
+            styles: [__webpack_require__(358)],
         }),
         __metadata("design:paramtypes", [])
     ], StrokeComponent);
@@ -5765,13 +5926,13 @@ var StrokeComponent = /** @class */ (function () {
 //# sourceMappingURL=stroke.component.js.map
 
 /***/ }),
-/* 354 */
+/* 357 */
 /***/ (function(module, exports) {
 
 module.exports = "";
 
 /***/ }),
-/* 355 */
+/* 358 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -5788,7 +5949,7 @@ exports.push([module.i, "", ""]);
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 356 */
+/* 359 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5796,8 +5957,8 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_redux_store___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__angular_redux_store__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__epics__ = __webpack_require__(357);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducer__ = __webpack_require__(376);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__epics__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducer__ = __webpack_require__(379);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5834,15 +5995,15 @@ var StoreModule = /** @class */ (function () {
 //# sourceMappingURL=store.module.js.map
 
 /***/ }),
-/* 357 */
+/* 360 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RootEpics; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_canvas_epics__ = __webpack_require__(204);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__color_color_epics__ = __webpack_require__(214);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_toolbox_epics__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__color_color_epics__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_toolbox_epics__ = __webpack_require__(217);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5876,18 +6037,18 @@ var RootEpics = /** @class */ (function () {
 //# sourceMappingURL=epics.js.map
 
 /***/ }),
-/* 358 */,
-/* 359 */,
-/* 360 */
+/* 361 */,
+/* 362 */,
+/* 363 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createCanvastool; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvastool_action__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvastool_action__ = __webpack_require__(167);
 
 
 
@@ -5915,14 +6076,14 @@ var createCanvastool = function () {
 //# sourceMappingURL=canvastool.model.js.map
 
 /***/ }),
-/* 361 */
+/* 364 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createDirectSelectiontool; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__toolbox_model__ = __webpack_require__(23);
 
 
@@ -5936,16 +6097,16 @@ var createDirectSelectiontool = function () {
 //# sourceMappingURL=directtool.model.js.map
 
 /***/ }),
-/* 362 */
+/* 365 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createPentool; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tool_tool_model__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pentool_action__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pentool_action__ = __webpack_require__(66);
 
 
 
@@ -5981,9 +6142,6 @@ var createPentool = function () {
 //# sourceMappingURL=pentool.model.js.map
 
 /***/ }),
-/* 363 */,
-/* 364 */,
-/* 365 */,
 /* 366 */,
 /* 367 */,
 /* 368 */,
@@ -5994,15 +6152,18 @@ var createPentool = function () {
 /* 373 */,
 /* 374 */,
 /* 375 */,
-/* 376 */
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return rootReducer; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(182);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvas_canvas_reducer__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__color_color_reducer__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_toolbox_reducer__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__color_color_reducer__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_toolbox_reducer__ = __webpack_require__(228);
 
 
 
@@ -6015,7 +6176,7 @@ var rootReducer = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"])
 //# sourceMappingURL=reducer.js.map
 
 /***/ }),
-/* 377 */
+/* 380 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6026,14 +6187,14 @@ var canvastoolReducer = function (state, action) {
 //# sourceMappingURL=canvastool.reducer.js.map
 
 /***/ }),
-/* 378 */
+/* 381 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pentoolReducer; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pentool_action__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pentool_action__ = __webpack_require__(66);
 
 
 var pentoolReducer = function (state, action) {
@@ -6047,7 +6208,7 @@ var pentoolReducer = function (state, action) {
 //# sourceMappingURL=pentool.reducer.js.map
 
 /***/ }),
-/* 379 */
+/* 382 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6058,29 +6219,29 @@ var selectiontoolReducer = function (state, action) {
 //# sourceMappingURL=selectiontool.reducer.js.map
 
 /***/ }),
-/* 380 */
+/* 383 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ToolboxModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__canvastool_canvastool_component__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvastool_canvastool_epics__ = __webpack_require__(217);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directtool_directtool_component__ = __webpack_require__(229);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directtool_directtool_epics__ = __webpack_require__(219);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pentool_epics_pentool_draw_epics__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pentool_epics_pentool_epics__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pentool_pentool_action__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pentool_pentool_component__ = __webpack_require__(230);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__selectiontool_selectiontool_action__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__selectiontool_selectiontool_component__ = __webpack_require__(231);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__selectiontool_selectiontool_epics__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__tool_tool_container_component__ = __webpack_require__(397);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__tool_tool_directive__ = __webpack_require__(232);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__canvastool_canvastool_component__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__canvastool_canvastool_epics__ = __webpack_require__(218);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__directtool_directtool_component__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directtool_directtool_epics__ = __webpack_require__(220);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pentool_epics_pentool_draw_epics__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pentool_epics_pentool_epics__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pentool_pentool_action__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pentool_pentool_component__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__selectiontool_selectiontool_action__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__selectiontool_selectiontool_component__ = __webpack_require__(232);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__selectiontool_selectiontool_epics__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__tool_tool_container_component__ = __webpack_require__(400);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__tool_tool_directive__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__toolbox_action__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__toolbox_component__ = __webpack_require__(400);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__toolbox_epics__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__toolbox_component__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__toolbox_epics__ = __webpack_require__(217);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6150,13 +6311,13 @@ var ToolboxModule = /** @class */ (function () {
 //# sourceMappingURL=toolbox.module.js.map
 
 /***/ }),
-/* 381 */
+/* 384 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"canvastool\" (click)=\"selectTool()\">\n\t<div class=\"canvastool__icon\" [ngClass]=\"{ 'icon--active': context.isActive }\"></div>\n</div>\n";
 
 /***/ }),
-/* 382 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -6164,104 +6325,69 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, ".canvastool {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  width: 100%;\n  height: 100%; }\n  .canvastool .canvastool__icon {\n    width: 20px;\n    height: 20px;\n    background-image: url(" + __webpack_require__(383) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center; }\n    .canvastool .canvastool__icon.icon--active {\n      background-image: url(" + __webpack_require__(384) + "); }\n\n:host {\n  width: 100%;\n  height: 100%; }\n", ""]);
+exports.push([module.i, ".canvastool {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  width: 100%;\n  height: 100%; }\n  .canvastool .canvastool__icon {\n    width: 20px;\n    height: 20px;\n    background-image: url(" + __webpack_require__(386) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center; }\n    .canvastool .canvastool__icon.icon--active {\n      background-image: url(" + __webpack_require__(387) + "); }\n\n:host {\n  width: 100%;\n  height: 100%; }\n", ""]);
 
 // exports
 
 
 /*** EXPORTS FROM exports-loader ***/
 module.exports = module.exports.toString();
-
-/***/ }),
-/* 383 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "canvastool_inactive.08e95c4449f62d534c55.svg";
-
-/***/ }),
-/* 384 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "canvastool_active.f5ae7466ed1820b4e7f5.svg";
-
-/***/ }),
-/* 385 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"directtool\" (click)=\"selectTool()\">\n    <div class=\"directtool__icon\" [ngClass]=\"{ 'icon--active': context.isActive }\"></div>\n  </div>\n  ";
 
 /***/ }),
 /* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".directtool {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  width: 100%;\n  height: 100%; }\n  .directtool .directtool__icon {\n    width: 25px;\n    height: 25px;\n    background-image: url(" + __webpack_require__(387) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center; }\n    .directtool .directtool__icon.icon--active {\n      background-image: url(" + __webpack_require__(388) + "); }\n\n:host {\n  width: 100%;\n  height: 100%; }\n", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
+module.exports = __webpack_require__.p + "canvastool_inactive.08e95c4449f62d534c55.svg";
 
 /***/ }),
 /* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "direct_inactive.01b6d7b9ba41b8757999.svg";
+module.exports = __webpack_require__.p + "canvastool_active.f5ae7466ed1820b4e7f5.svg";
 
 /***/ }),
 /* 388 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__.p + "direct_active.324478f77a07bb8e8968.svg";
+module.exports = "<div class=\"directtool\" (click)=\"selectTool()\">\n    <div class=\"directtool__icon\" [ngClass]=\"{ 'icon--active': context.isActive }\"></div>\n  </div>\n  ";
 
 /***/ }),
 /* 389 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "<div class=\"pentool\" (click)=\"selectTool()\">\n\t<div class=\"pentool__icon\" [ngClass]=\"{ 'icon--active': context.isActive }\"></div>\n</div>\n";
+exports = module.exports = __webpack_require__(6)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".directtool {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  width: 100%;\n  height: 100%; }\n  .directtool .directtool__icon {\n    width: 25px;\n    height: 25px;\n    background-image: url(" + __webpack_require__(390) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center; }\n    .directtool .directtool__icon.icon--active {\n      background-image: url(" + __webpack_require__(391) + "); }\n\n:host {\n  width: 100%;\n  height: 100%; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
 
 /***/ }),
 /* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(false);
-// imports
-
-
-// module
-exports.push([module.i, ".pentool {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  width: 100%;\n  height: 100%; }\n  .pentool .pentool__icon {\n    width: 25px;\n    height: 25px;\n    background-image: url(" + __webpack_require__(391) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center; }\n    .pentool .pentool__icon.icon--active {\n      background-image: url(" + __webpack_require__(392) + "); }\n\n:host {\n  width: 100%;\n  height: 100%; }\n", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
+module.exports = __webpack_require__.p + "direct_inactive.01b6d7b9ba41b8757999.svg";
 
 /***/ }),
 /* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "pentool_inactive.feb8b6ff92587d552a8d.svg";
+module.exports = __webpack_require__.p + "direct_active.324478f77a07bb8e8968.svg";
 
 /***/ }),
 /* 392 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__.p + "pentool_active.a2f4844f52be4b6e480c.svg";
+module.exports = "<div class=\"pentool\" (click)=\"selectTool()\">\n\t<div class=\"pentool__icon\" [ngClass]=\"{ 'icon--active': context.isActive }\"></div>\n</div>\n";
 
 /***/ }),
 /* 393 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"selectiontool\" (click)=\"selectTool()\">\n\t<div class=\"selectiontool__icon\" [ngClass]=\"{ 'icon--active': context.isActive }\"></div>\n</div>\n";
-
-/***/ }),
-/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -6269,7 +6395,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, ".selectiontool {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  width: 100%;\n  height: 100%; }\n  .selectiontool .selectiontool__icon {\n    width: 25px;\n    height: 25px;\n    background-image: url(" + __webpack_require__(395) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: 75% 50%; }\n    .selectiontool .selectiontool__icon.icon--active {\n      background-image: url(" + __webpack_require__(396) + "); }\n\n:host {\n  width: 100%;\n  height: 100%; }\n", ""]);
+exports.push([module.i, ".pentool {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  width: 100%;\n  height: 100%; }\n  .pentool .pentool__icon {\n    width: 25px;\n    height: 25px;\n    background-image: url(" + __webpack_require__(394) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: center; }\n    .pentool .pentool__icon.icon--active {\n      background-image: url(" + __webpack_require__(395) + "); }\n\n:host {\n  width: 100%;\n  height: 100%; }\n", ""]);
 
 // exports
 
@@ -6278,31 +6404,66 @@ exports.push([module.i, ".selectiontool {\n  display: flex;\n  justify-content: 
 module.exports = module.exports.toString();
 
 /***/ }),
+/* 394 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "pentool_inactive.feb8b6ff92587d552a8d.svg";
+
+/***/ }),
 /* 395 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "pentool_active.a2f4844f52be4b6e480c.svg";
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"selectiontool\" (click)=\"selectTool()\">\n\t<div class=\"selectiontool__icon\" [ngClass]=\"{ 'icon--active': context.isActive }\"></div>\n</div>\n";
+
+/***/ }),
+/* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(false);
+// imports
+
+
+// module
+exports.push([module.i, ".selectiontool {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  width: 100%;\n  height: 100%; }\n  .selectiontool .selectiontool__icon {\n    width: 25px;\n    height: 25px;\n    background-image: url(" + __webpack_require__(398) + ");\n    background-size: contain;\n    background-repeat: no-repeat;\n    background-position: 75% 50%; }\n    .selectiontool .selectiontool__icon.icon--active {\n      background-image: url(" + __webpack_require__(399) + "); }\n\n:host {\n  width: 100%;\n  height: 100%; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "selectiontool_inactive.17b16e2703000162f805.svg";
 
 /***/ }),
-/* 396 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "selectiontool_active.dc9c767d2d05a6e9dfd2.svg";
 
 /***/ }),
-/* 397 */
+/* 400 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ToolContainerComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvastool_canvastool_component__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__directtool_directtool_component__ = __webpack_require__(229);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pentool_pentool_component__ = __webpack_require__(230);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selectiontool_selectiontool_component__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__canvastool_canvastool_component__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__directtool_directtool_component__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pentool_pentool_component__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__selectiontool_selectiontool_component__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tool_base_component__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tool_directive__ = __webpack_require__(232);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tool_base_component__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tool_directive__ = __webpack_require__(233);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6369,8 +6530,8 @@ var ToolContainerComponent = /** @class */ (function () {
     ToolContainerComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-tool-container',
-            template: __webpack_require__(398),
-            styles: [__webpack_require__(399)],
+            template: __webpack_require__(401),
+            styles: [__webpack_require__(402)],
         }),
         __metadata("design:paramtypes", [typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ComponentFactoryResolver"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"]) === "function" && _f || Object])
     ], ToolContainerComponent);
@@ -6382,13 +6543,13 @@ var _a;
 //# sourceMappingURL=tool.container.component.js.map
 
 /***/ }),
-/* 398 */
+/* 401 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"tool\" [ngClass]=\"{ 'tool--active': context.isActive }\">\n\t<ng-template appToolHost></ng-template>\n</div>";
 
 /***/ }),
-/* 399 */
+/* 402 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -6405,7 +6566,7 @@ exports.push([module.i, ".tool {\n  width: 60px;\n  height: 60px;\n  display: fl
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 400 */
+/* 403 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6416,7 +6577,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toolbox_model__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__toolbox_reducer__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__toolbox_reducer__ = __webpack_require__(228);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6452,8 +6613,8 @@ var ToolboxComponent = /** @class */ (function () {
         }),
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
             selector: 'app-toolbox',
-            template: __webpack_require__(401),
-            styles: [__webpack_require__(402)],
+            template: __webpack_require__(404),
+            styles: [__webpack_require__(405)],
             encapsulation: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ViewEncapsulation"].None,
         })
     ], ToolboxComponent);
@@ -6464,13 +6625,13 @@ var ToolboxComponent = /** @class */ (function () {
 //# sourceMappingURL=toolbox.component.js.map
 
 /***/ }),
-/* 401 */
+/* 404 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"toolbox\">\n  <app-tool-container *ngFor=\"let tool of toolList\" [type]=\"tool\" [context]=\"{ toolName: tool, isActive: tool === (selected$ | async) }\"></app-tool-container>\n</div>";
 
 /***/ }),
-/* 402 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -6487,13 +6648,13 @@ exports.push([module.i, ".toolbox {\n  position: fixed;\n  top: 100px;\n  left: 
 module.exports = module.exports.toString();
 
 /***/ }),
-/* 403 */
+/* 406 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutingModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(407);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6518,9 +6679,6 @@ var AppRoutingModule = /** @class */ (function () {
 //# sourceMappingURL=app-routing.module.js.map
 
 /***/ }),
-/* 404 */,
-/* 405 */,
-/* 406 */,
 /* 407 */,
 /* 408 */,
 /* 409 */,
@@ -6535,7 +6693,10 @@ var AppRoutingModule = /** @class */ (function () {
 /* 418 */,
 /* 419 */,
 /* 420 */,
-/* 421 */
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6548,5 +6709,5 @@ var environment = {
 //# sourceMappingURL=index.js.map
 
 /***/ })
-]),[233]);
+]),[234]);
 //# sourceMappingURL=main.bundle.js.map
